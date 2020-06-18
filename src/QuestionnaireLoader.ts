@@ -9,6 +9,7 @@ export class QuestionnaireLoader {
   getFromFile(filePath: string): R4.IQuestionnaire {
     // use fs to read in file content as JSON
     let obj = {} as IQuestionnaire;
+    //accessing questionnaire folder for questionnaire specified by input
     const json = fs.readFileSync(`../Questionnaires/${filePath}`, 'utf8');
     if (json) {
       obj = JSON.parse(json);
@@ -43,7 +44,8 @@ export class QuestionnaireLoader {
 }
 
 
-//
+//test code to see if the functions work correctly 
+
 //let QuestionnaireLoader1 = new QuestionnaireLoader();
 //QuestionnaireLoader1.getFromFile('sample_questionnaire.json');
 //QuestionnaireLoader1.getFromUrl('http://hapi.fhir.org/baseR4/Questionnaire/1221728');
