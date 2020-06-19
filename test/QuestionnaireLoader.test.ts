@@ -1,8 +1,8 @@
 import nock from 'nock';
 import * as example_questionnaire from '../Questionnaires/sample_questionnaire.json';
 import { QuestionnaireLoader } from '../src/QuestionnaireLoader';
-// TODO: Add tests for QuestionnaireLoader class functions
 
+//Test for QuestionnaireLoader class function getFromUrl
 const MOCK_URL = 'http://example.com';
 const questionnaire = new QuestionnaireLoader();
 

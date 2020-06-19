@@ -1,6 +1,5 @@
 import { R4 } from '@ahryman40k/ts-fhir-types';
 import * as fs from 'fs';
-//import * as util from 'util'
 import { IQuestionnaire } from '@ahryman40k/ts-fhir-types/lib/R4';
 import axios from 'axios';
 
