@@ -4,7 +4,6 @@ import * as fs from 'fs';
 import { IQuestionnaire } from '@ahryman40k/ts-fhir-types/lib/R4';
 import axios from 'axios';
 
-
 export class QuestionnaireLoader {
   getFromFile(filePath: string): R4.IQuestionnaire {
     // use fs to read in file content as JSON
@@ -21,30 +20,24 @@ export class QuestionnaireLoader {
     }
   }
 
-  getFromUrl(url: string): R4.IQuestionnaire {
+  async getFromUrl(url: string): Promise<R4.IQuestionnaire> {
     let obj = {} as IQuestionnaire;
     // use axios to send GET request and return response data
-    axios.get(url)
-    .then(function(response) {
-      console.log(response.status);
-      if (response.status == 200) {
-        obj = response.data;
-        console.log(obj);
+    try {
+      const response = await axios.get(url);
+      obj = response.data;
+      console.log(obj);
+    } catch (e) {
+      if (e.response) {
+        console.log('The error status: ' + e.response.status);
+        console.log(e.response.headers);
       }
-    })
-    .catch( function (error) {
-      if (error.response) {
-        console.log('The error status: ' + error.response.status);
-        console.log(error.response.headers);
-        return obj;
-      }
-    });
+    }
     return obj;
   }
 }
 
-
-//test code to see if the functions work correctly 
+//test code to see if the functions work correctly
 
 //let QuestionnaireLoader1 = new QuestionnaireLoader();
 //QuestionnaireLoader1.getFromFile('sample_questionnaire.json');
