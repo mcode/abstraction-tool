@@ -6,7 +6,7 @@ import { QuestionnaireLoader } from '../QuestionnaireLoader';
 const MOCK_URL = 'http://example.com';
 const questionnaire = new QuestionnaireLoader();
 
-test('questionnaire form yielding a questionnaire form result', async () => {
+test('correctly query url for a questionnaire', async () => {
   nock(MOCK_URL).get('/').reply(200, sampleQuestionnaire);
 
   const actualQuestionnaire = await questionnaire.getFromUrl(MOCK_URL);
