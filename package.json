@@ -33,7 +33,9 @@
     "eslint": "^7.2.0",
     "eslint-config-prettier": "^6.11.0",
     "jest": "^26.0.1",
+    "nock": "^12.0.3",
     "prettier": "^2.0.5",
+    "ts-jest": "^26.1.0",
     "typescript": "^3.9.5"
   },
   "dependencies": {
