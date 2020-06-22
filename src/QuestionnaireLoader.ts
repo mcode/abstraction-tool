@@ -15,11 +15,8 @@ export class QuestionnaireLoader {
   }
 
   async getFromUrl(url: string): Promise<R4.IQuestionnaire> {
-    let obj = {} as R4.IQuestionnaire;
     // use axios to send GET request and return response data
     const response = await axios.get(url);
-    obj = response.data;
-    console.log(obj);
-    return obj;
+    return response.data;
   }
 }
