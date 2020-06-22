@@ -8,7 +8,6 @@ export class QuestionnaireLoader {
     const json = fs.readFileSync(filePath, 'utf8');
     const obj = JSON.parse(json) as R4.IQuestionnaire;
     if (obj && obj.resourceType === 'Questionnaire') {
-      //console.log(obj);
       return obj;
     } else {
       throw new Error('provided file is not a valid FHIR questionnaire');
