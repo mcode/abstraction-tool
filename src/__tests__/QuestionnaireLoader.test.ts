@@ -1,15 +1,15 @@
 import nock from 'nock';
-import * as example_questionnaire from '../Questionnaires/sample_questionnaire.json';
-import { QuestionnaireLoader } from '../src/QuestionnaireLoader';
+import sampleQuestionnaire from './fixtures/sample-questionnaire.json';
+import { QuestionnaireLoader } from '../QuestionnaireLoader';
 
 //Test for QuestionnaireLoader class function getFromUrl
 const MOCK_URL = 'http://example.com';
 const questionnaire = new QuestionnaireLoader();
 
 test('questionnaire form yielding a questionnaire form result', async () => {
-  nock(MOCK_URL).get('/').reply(200, example_questionnaire);
+  nock(MOCK_URL).get('/').reply(200, sampleQuestionnaire);
 
   const actualQuestionnaire = await questionnaire.getFromUrl(MOCK_URL);
 
-  expect(actualQuestionnaire).toEqual(example_questionnaire);
+  expect(actualQuestionnaire).toEqual(sampleQuestionnaire);
 });

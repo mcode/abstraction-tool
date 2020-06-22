@@ -11,7 +11,7 @@ export class QuestionnaireLoader {
       //console.log(obj);
       return obj;
     } else {
-      throw new Error ('provided file is not a valid FHIR questionnaire');
+      throw new Error('provided file is not a valid FHIR questionnaire');
     }
   }
 
