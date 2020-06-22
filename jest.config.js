@@ -10,5 +10,7 @@ module.exports = {
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest'
   },
-  testMatch: ['**/__tests__/**/*.test.(ts|js)']
+  testMatch: ['**/src/__tests__/**/*.test.(ts|js)'],
+  collectCoverage: true,
+  collectCoverageFrom: ['./src/**/*.{js,ts}']
 };
