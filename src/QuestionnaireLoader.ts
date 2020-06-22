@@ -1,43 +1,26 @@
 import { R4 } from '@ahryman40k/ts-fhir-types';
 import * as fs from 'fs';
-import { IQuestionnaire } from '@ahryman40k/ts-fhir-types/lib/R4';
 import axios from 'axios';
 
 export class QuestionnaireLoader {
   getFromFile(filePath: string): R4.IQuestionnaire {
-    // use fs to read in file content as JSON
-    let obj = {} as IQuestionnaire;
     //accessing questionnaire folder for questionnaire specified by input
-    const json = fs.readFileSync(`../Questionnaires/${filePath}`, 'utf8');
-    if (json) {
-      obj = JSON.parse(json);
-      console.log(obj);
+    const json = fs.readFileSync(filePath, 'utf8');
+    const obj = JSON.parse(json) as R4.IQuestionnaire;
+    if (obj && obj.resourceType == 'Questionnaire') {
+      //console.log(obj);
       return obj;
     } else {
-      console.log('This is null or undefined');
-      return obj;
+      throw new Error ('provided file is not a valid FHIR questionnaire');
     }
   }
 
   async getFromUrl(url: string): Promise<R4.IQuestionnaire> {
-    let obj = {} as IQuestionnaire;
+    let obj = {} as R4.IQuestionnaire;
     // use axios to send GET request and return response data
-    try {
-      const response = await axios.get(url);
-      obj = response.data;
-      console.log(obj);
-    } catch (e) {
-      if (e.response) {
-        console.log('The error status: ' + e.response.status);
-        console.log(e.response.headers);
-      }
-    }
+    const response = await axios.get(url);
+    obj = response.data;
+    console.log(obj);
     return obj;
   }
 }
-
-//test code to see if the functions work correctly
-
-//let QuestionnaireLoader1 = new QuestionnaireLoader();
-//QuestionnaireLoader1.getFromFile('sample_questionnaire.json');
-//QuestionnaireLoader1.getFromUrl('http://hapi.fhir.org/baseR4/Questionnaire/1221728');
