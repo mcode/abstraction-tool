@@ -7,7 +7,7 @@ export class QuestionnaireLoader {
     //accessing questionnaire folder for questionnaire specified by input
     const json = fs.readFileSync(filePath, 'utf8');
     const obj = JSON.parse(json) as R4.IQuestionnaire;
-    if (obj && obj.resourceType == 'Questionnaire') {
+    if (obj && obj.resourceType === 'Questionnaire') {
       //console.log(obj);
       return obj;
     } else {
