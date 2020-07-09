@@ -1,0 +1,60 @@
+{
+    "resourceType": "Library",
+    "id": "HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1",
+    "name": "HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1",
+    "version": "1.0.1",
+    "type": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/library-type",
+          "code": "logic-library"
+        }
+      ]
+    },
+    "status": "draft",
+    "dataRequirement": [
+      {
+        "type": "Observation",
+        "codeFilter": [
+          {
+            "path": "code",
+            "code": [
+              {
+                "code": "88040-1",
+                "system": "http://loinc.org"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Observation",
+        "codeFilter": [
+          {
+            "path": "code",
+            "code": [
+              {
+                "code": "69548-6",
+                "system": "http://loinc.org"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Condition",
+        "codeFilter": [
+          {
+            "path": "code",
+            "valueSet": "mcode-comorbid-condition-vs"
+          }
+        ]
+      }
+    ],
+    "content": [
+      {
+        "contentType": "application/elm+json",
+        "data": "ewogICAibGlicmFyeSI6IHsKICAgICAgImFubm90YXRpb24iOiBbCiAgICAgICAgIHsKICAgICAgICAgICAgInN0YXJ0TGluZSI6IDEyLAogICAgICAgICAgICAic3RhcnRDaGFyIjogNSwKICAgICAgICAgICAgImVuZExpbmUiOiAxMiwKICAgICAgICAgICAgImVuZENoYXIiOiA0NSwKICAgICAgICAgICAgIm1lc3NhZ2UiOiAiQ291bGQgbm90IHJlc29sdmUgbWVtYmVyc2hpcCBvcGVyYXRvciBmb3IgdGVybWlub2xvZ3kgdGFyZ2V0IG9mIHRoZSByZXRyaWV2ZS4iLAogICAgICAgICAgICAiZXJyb3JUeXBlIjogInNlbWFudGljIiwKICAgICAgICAgICAgImVycm9yU2V2ZXJpdHkiOiAid2FybmluZyIsCiAgICAgICAgICAgICJ0eXBlIjogIkNxbFRvRWxtRXJyb3IiCiAgICAgICAgIH0KICAgICAgXSwKICAgICAgImlkZW50aWZpZXIiOiB7CiAgICAgICAgICJpZCI6ICJleGFtcGxlIiwKICAgICAgICAgInZlcnNpb24iOiAiMC4wLjEiCiAgICAgIH0sCiAgICAgICJzY2hlbWFJZGVudGlmaWVyIjogewogICAgICAgICAiaWQiOiAidXJuOmhsNy1vcmc6ZWxtIiwKICAgICAgICAgInZlcnNpb24iOiAicjEiCiAgICAgIH0sCiAgICAgICJ1c2luZ3MiOiB7CiAgICAgICAgICJkZWYiOiBbCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgImxvY2FsSWRlbnRpZmllciI6ICJTeXN0ZW0iLAogICAgICAgICAgICAgICAidXJpIjogInVybjpobDctb3JnOmVsbS10eXBlczpyMSIKICAgICAgICAgICAgfSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAibG9jYWxJZGVudGlmaWVyIjogIkZISVIiLAogICAgICAgICAgICAgICAidXJpIjogImh0dHA6Ly9obDcub3JnL2ZoaXIiLAogICAgICAgICAgICAgICAidmVyc2lvbiI6ICI0LjAuMCIKICAgICAgICAgICAgfQogICAgICAgICBdCiAgICAgIH0sCiAgICAgICJjb2RlU3lzdGVtcyI6IHsKICAgICAgICAgImRlZiI6IFsKICAgICAgICAgICAgewogICAgICAgICAgICAgICAibmFtZSI6ICJMT0lOQyIsCiAgICAgICAgICAgICAgICJpZCI6ICJodHRwOi8vbG9pbmMub3JnIiwKICAgICAgICAgICAgICAgImFjY2Vzc0xldmVsIjogIlB1YmxpYyIKICAgICAgICAgICAgfQogICAgICAgICBdCiAgICAgIH0sCiAgICAgICJ2YWx1ZVNldHMiOiB7CiAgICAgICAgICJkZWYiOiBbCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIm5hbWUiOiAiQ2FuY2VyIERpc2Vhc2UgU3RhdHVzIEV2aWRlbmNlIFR5cGUgVmFsdWUgU2V0IiwKICAgICAgICAgICAgICAgImlkIjogIm1jb2RlLWNhbmNlci1kaXNlYXNlLXN0YXR1cy1ldmlkZW5jZS10eXBlLXZzIiwKICAgICAgICAgICAgICAgImFjY2Vzc0xldmVsIjogIlB1YmxpYyIKICAgICAgICAgICAgfQogICAgICAgICBdCiAgICAgIH0sCiAgICAgICJjb2RlcyI6IHsKICAgICAgICAgImRlZiI6IFsKICAgICAgICAgICAgewogICAgICAgICAgICAgICAibmFtZSI6ICJDYW5jZXJEaXNlYXNlU3RhdHVzIENvZGUiLAogICAgICAgICAgICAgICAiaWQiOiAiODgwNDAtMSIsCiAgICAgICAgICAgICAgICJhY2Nlc3NMZXZlbCI6ICJQdWJsaWMiLAogICAgICAgICAgICAgICAiY29kZVN5c3RlbSI6IHsKICAgICAgICAgICAgICAgICAgIm5hbWUiOiAiTE9JTkMiCiAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQogICAgICAgICBdCiAgICAgIH0sCiAgICAgICJzdGF0ZW1lbnRzIjogewogICAgICAgICAiZGVmIjogWwogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICJuYW1lIjogIkNhbmNlckRpc2Vhc2VTdGF0dXMiLAogICAgICAgICAgICAgICAiY29udGV4dCI6ICJQYXRpZW50IiwKICAgICAgICAgICAgICAgImFjY2Vzc0xldmVsIjogIlB1YmxpYyIsCiAgICAgICAgICAgICAgICJleHByZXNzaW9uIjogewogICAgICAgICAgICAgICAgICAiZGF0YVR5cGUiOiAie2h0dHA6Ly9obDcub3JnL2ZoaXJ9T2JzZXJ2YXRpb24iLAogICAgICAgICAgICAgICAgICAiY29kZVByb3BlcnR5IjogImNvZGUiLAogICAgICAgICAgICAgICAgICAidHlwZSI6ICJSZXRyaWV2ZSIsCiAgICAgICAgICAgICAgICAgICJjb2RlcyI6IHsKICAgICAgICAgICAgICAgICAgICAgInR5cGUiOiAiVG9MaXN0IiwKICAgICAgICAgICAgICAgICAgICAgIm9wZXJhbmQiOiB7CiAgICAgICAgICAgICAgICAgICAgICAgICJuYW1lIjogIkNhbmNlckRpc2Vhc2VTdGF0dXMgQ29kZSIsCiAgICAgICAgICAgICAgICAgICAgICAgICJ0eXBlIjogIkNvZGVSZWYiCiAgICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KICAgICAgICAgXQogICAgICB9CiAgIH0KfQ=="
+      }
+    ]
+  }

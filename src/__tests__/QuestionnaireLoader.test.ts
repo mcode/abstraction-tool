@@ -1,6 +1,6 @@
 import nock from 'nock';
 import sampleQuestionnaire from './fixtures/sample-questionnaire.json';
-import { QuestionnaireLoader } from '../QuestionnaireLoader';
+import { QuestionnaireLoader } from '../../src/loaders/QuestionnaireLoader';
 
 //Test for QuestionnaireLoader class function getFromUrl
 const MOCK_URL = 'http://example.com';
