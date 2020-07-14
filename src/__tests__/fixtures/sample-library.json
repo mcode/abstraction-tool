@@ -1,0 +1,45 @@
+{
+    "resourceType": "Library",
+    "id": "example",
+    "name": "example",
+    "version": "0.0.1",
+    "type": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/library-type",
+          "code": "logic-library"
+        }
+      ]
+    },
+    "status": "draft",
+    "dataRequirement": [
+      {
+        "type": "Condition",
+        "codeFilter": [
+          {
+            "path": "code",
+            "valueSet": "example-valueset-1"
+          }
+        ]
+
+      },
+      {
+        "type": "Condition",
+        "codeFilter": [
+          {
+            "path": "code",
+            "valueSet": "example-valueset-2"
+          }
+        ]
+      },
+      {
+        "type": "Condition",
+        "codeFilter": [
+          {
+            "path": "code",
+            "valueSet": "example-valueset-3"
+          }
+        ]
+      }
+    ]
+  }
