@@ -3,7 +3,6 @@ import { Base64 } from 'js-base64';
 //import * as fs from 'fs';
 import { convertBasicCQL } from '../helpers/cql-to-elm';
 
-
 export class LibraryLoader {
   library: R4.ILibrary;
 
@@ -17,10 +16,10 @@ export class LibraryLoader {
     const contentInfoTranslate = this.library.content?.find(x => x.contentType === 'text/cql');
     if (contentInfoElm && contentInfoElm.data) {
       return JSON.parse(Base64.decode(contentInfoElm.data));
-     } else if (contentInfoTranslate && contentInfoTranslate.data) {
-       //this is running the cql through a translation service and returning the elm if it isn't provided
-        const decoded = Base64.decode(contentInfoTranslate.data);
-        return await convertBasicCQL(decoded);
+    } else if (contentInfoTranslate && contentInfoTranslate.data) {
+      //this is running the cql through a translation service and returning the elm if it isn't provided
+      const decoded = Base64.decode(contentInfoTranslate.data);
+      return await convertBasicCQL(decoded);
     }
   }
 }
