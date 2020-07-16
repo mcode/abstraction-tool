@@ -27,14 +27,14 @@ define "CancerDiseaseStatus":
 test('correctly parse the cql into elm through translation service', async () => {
   nock(elmServiceUrl).post('/').reply(200, sampleElm);
 
-  const actualElm = await LibraryLoaderCql.checkELM();
+  const actualElm = await LibraryLoaderCql.fetchELM();
 
   expect(actualElm).toEqual(sampleElm);
 });
 
 //Test for LibraryLoader class with the elm already in the data field
 test('correctly obtain the elm item', async () => {
-  const actualElm = await LibraryLoaderElm.checkELM();
+  const actualElm = await LibraryLoaderElm.fetchELM();
 
   expect(actualElm).toEqual(sampleElm);
 });
@@ -44,14 +44,14 @@ test('correctly parse the cql into elm through translation service from url', as
   nock(MOCK_URL).get('/').reply(200, MOCK_CQL);
   nock(elmServiceUrl).post('/').reply(200, sampleElm);
 
-  const actualElm = await LibraryLoaderCql.checkELM();
+  const actualElm = await LibraryLoaderCql.fetchELM();
 
   expect(actualElm).toEqual(sampleElm);
 });
 
 test('correctly obtain the elm item from url', async () => {
   nock(MOCK_URL).get('/').reply(200, sampleElm);
-  const actualElm = await LibraryLoaderElm.checkELM();
+  const actualElm = await LibraryLoaderElm.fetchELM();
 
   expect(actualElm).toEqual(sampleElm);
 });

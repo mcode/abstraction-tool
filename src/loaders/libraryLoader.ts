@@ -10,7 +10,7 @@ export class LibraryLoader {
     this.library = thelibrary;
   }
 
-  async checkELM(): Promise<any> {
+  async fetchELM(): Promise<any> {
     //getting the elm and decoding the data components
     const contentInfoElm = this.library.content?.find(x => x.contentType === 'application/elm+json');
     const contentInfoTranslate = this.library.content?.find(x => x.contentType === 'text/cql');
