@@ -1,7 +1,7 @@
 import { R4 } from '@ahryman40k/ts-fhir-types';
 import { Base64 } from 'js-base64';
-//import * as fs from 'fs';
 import { convertBasicCQL } from '../helpers/cql-to-elm';
+import axios from 'axios';
 
 export class LibraryLoader {
   library: R4.ILibrary;
@@ -20,6 +20,13 @@ export class LibraryLoader {
       //this is running the cql through a translation service and returning the elm if it isn't provided
       const decoded = Base64.decode(contentInfoTranslate.data);
       return await convertBasicCQL(decoded);
+    } else if (contentInfoElm && contentInfoElm.url) {
+      const response = await axios.get(contentInfoElm.url);
+      return response.data;
+    } else if (contentInfoTranslate && contentInfoTranslate.url) {
+      //this is running the cql through a translation service and returning the elm if it isn't provided via url
+      const response = await axios.get(contentInfoTranslate.url);
+      return await convertBasicCQL(response.data);
     }
   }
 }
