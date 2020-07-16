@@ -27,6 +27,8 @@ export class LibraryLoader {
       //this is running the cql through a translation service and returning the elm if it isn't provided via url
       const response = await axios.get(contentInfoTranslate.url);
       return await convertBasicCQL(response.data);
+    } else {
+      throw new Error('Could not fetch ELM off of Library resource');
     }
   }
 }
