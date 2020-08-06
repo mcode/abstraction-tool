@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import nock from 'nock';
 import libraryWithCql from './fixtures/sample-library-text-cql.json';
 import { LibraryLoader } from '../loaders/libraryLoader';

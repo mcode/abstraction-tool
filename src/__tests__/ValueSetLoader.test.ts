@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import { R4 } from '@ahryman40k/ts-fhir-types';
 import { ValueSetLoader } from '../loaders/ValueSetLoader';
 import exampleLibrary from './fixtures/sample-library.json';

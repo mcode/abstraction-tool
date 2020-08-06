@@ -23,7 +23,10 @@ export class ValueSetLoader {
         if (resource.id && resource.version && resource.compose) {
           const codes = _.flatten(
             resource.compose.include.map(i => {
-              return (i.concept ?? []).map(c => ({ code: c.code, system: i.system ?? '' }));
+              return (i.concept ?? []).map(c => ({
+                code: c.code,
+                system: i.system ?? ''
+              }));
             })
           );
           map[resource.id] = {
