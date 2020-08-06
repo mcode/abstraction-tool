@@ -1,7 +1,7 @@
-import { R4 } from "@ahryman40k/ts-fhir-types";
-import { Base64 } from "js-base64";
-import { convertBasicCQL } from "../helpers/cql-to-elm";
-import axios from "axios";
+import { R4 } from '@ahryman40k/ts-fhir-types';
+import { Base64 } from 'js-base64';
+import { convertBasicCQL } from '../helpers/cql-to-elm';
+import axios from 'axios';
 
 export class LibraryLoader {
   library: R4.ILibrary;
@@ -12,12 +12,8 @@ export class LibraryLoader {
 
   async fetchELM(): Promise<any> {
     //getting the elm and decoding the data components
-    const contentInfoElm = this.library.content?.find(
-      (x) => x.contentType === "application/elm+json"
-    );
-    const contentInfoTranslate = this.library.content?.find(
-      (x) => x.contentType === "text/cql"
-    );
+    const contentInfoElm = this.library.content?.find(x => x.contentType === 'application/elm+json');
+    const contentInfoTranslate = this.library.content?.find(x => x.contentType === 'text/cql');
     if (contentInfoElm && contentInfoElm.data) {
       return JSON.parse(Base64.decode(contentInfoElm.data));
     } else if (contentInfoTranslate && contentInfoTranslate.data) {
@@ -32,7 +28,7 @@ export class LibraryLoader {
       const response = await axios.get(contentInfoTranslate.url);
       return await convertBasicCQL(response.data);
     } else {
-      throw new Error("Could not fetch ELM off of Library resource");
+      throw new Error('Could not fetch ELM off of Library resource');
     }
   }
 }

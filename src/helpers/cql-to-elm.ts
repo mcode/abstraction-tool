@@ -1,5 +1,5 @@
-import { Client } from "cql-translation-service-client";
-import { elmServiceUrl } from "../config.json";
+import { Client } from 'cql-translation-service-client';
+import { elmServiceUrl } from '../config.json';
 
 interface ElmAnnotation {
   startLine: number;
@@ -16,7 +16,7 @@ export async function convertBasicCQL(cql: string): Promise<any> {
   const cqlTranslationClient = new Client(elmServiceUrl);
   const elm: any = await cqlTranslationClient.convertBasicCQL(cql);
   const errorMessages = (elm.library && elm.library.annotation).filter(
-    (m: ElmAnnotation) => m.errorSeverity === "error"
+    (m: ElmAnnotation) => m.errorSeverity === 'error'
   );
 
   if (errorMessages.length > 0) {
