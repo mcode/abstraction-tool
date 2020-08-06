@@ -15,6 +15,7 @@
     "@types/react-dom": "^16.9.0",
     "axios": "^0.19.2",
     "cql-translation-service-client": "^0.5.0",
+    "fhirclient": "^2.3.1",
     "js-base64": "^3.4.1",
     "lodash": "^4.17.19",
     "react": "^16.13.1",
