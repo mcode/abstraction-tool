@@ -1,6 +1,7 @@
 import { R4 } from "@ahryman40k/ts-fhir-types";
 import _ from "lodash";
 import { ValueSetMap } from "../types/valueset";
+import FHIR from "fhirClient";
 
 export class ValueSetLoader {
   library: R4.ILibrary;
@@ -40,5 +41,11 @@ export class ValueSetLoader {
       }
     });
     return map;
+  }
+
+  async getFromUrl(url: string): Promise<R4.IBundle> {
+    const client  = FHIR.client(url);
+    const response = await client.request(url);
+    return response.data;
   }
 }
