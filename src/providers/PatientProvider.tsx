@@ -1,9 +1,9 @@
-import React, { FC, createContext, useContext, ReactNode } from 'react';
+import React, { FC, memo, createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { R4 } from '@ahryman40k/ts-fhir-types';
+import { getDataSource } from '../dataSource';
 
 interface PatientProviderProps {
   children: ReactNode;
-  value: PatientContextInterface;
 }
 
 interface PatientContextInterface {
@@ -18,13 +18,17 @@ export const PatientContext = createContext<PatientContextInterface>({
   }
 });
 
-export const PatientProvider: FC<PatientProviderProps> = ({ children, value }) => {
-  return value.patientData == null ? (
-    <div>Loading...</div>
-  ) : (
-    <PatientContext.Provider value={value}>{children}</PatientContext.Provider>
-  );
-};
+export const PatientProvider: FC<PatientProviderProps> = memo(({ children }) => {
+  const [patientData, setPatientData] = useState();
+  const dataSource = getDataSource();
+
+  useEffect(() => {
+    const data = dataSource?.getData();
+    setPatientData(data);
+  }, [dataSource, setPatientData]);
+
+  return <PatientContext.Provider value={{ patientData, setPatientData }}>{children}</PatientContext.Provider>;
+});
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 export const usePatient = (): PatientContextInterface => useContext(PatientContext)!;
