@@ -1,25 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import { R4 } from '@ahryman40k/ts-fhir-types';
+import { getDataSource } from './dataSource';
+import { PatientProvider } from './providers/PatientProvider';
+
+const dataSource = getDataSource();
 
 function App() {
+  const [patientData, setPatientData] = useState();
+
+  useEffect(() => {
+    const data = dataSource?.getData() as R4.IBundle;
+    setPatientData(data);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <PatientProvider value={{ patientData, setPatientData }}>
+      <div>Patient bundle found with {patientData?.entry.length} resources</div>
+    </PatientProvider>
   );
 }
 
