@@ -1,6 +1,6 @@
 import { R4 } from '@ahryman40k/ts-fhir-types';
 import { Base64 } from 'js-base64';
-import { convertBasicCQL } from '../helpers/cql-to-elm';
+import { convertBasicCQL } from '../utils/cql-to-elm';
 import axios from 'axios';
 
 export class LibraryLoader {
