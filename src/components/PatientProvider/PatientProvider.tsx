@@ -1,6 +1,6 @@
 import React, { FC, memo, createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { R4 } from '@ahryman40k/ts-fhir-types';
-import { getDataSource } from '../dataSource';
+import { getDataSource } from '../../dataSource';
 
 interface PatientProviderProps {
   children: ReactNode;

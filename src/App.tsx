@@ -1,11 +1,11 @@
 import React from 'react';
-import { PatientProvider } from './providers/PatientProvider';
-import Example from './components/Example';
+import { PatientProvider } from './components/PatientProvider';
+import Abstractor from './components/Abstractor';
 
 function App() {
   return (
     <PatientProvider>
-      <Example />
+      <Abstractor />
     </PatientProvider>
   );
 }
