@@ -3249,10 +3249,10 @@ cql-exec-fhir@^1.3.1:
   dependencies:
     xml2js "~0.4.19"
 
-cql-execution@^1.4.3:
-  version "1.4.3"
-  resolved "https://registry.yarnpkg.com/cql-execution/-/cql-execution-1.4.3.tgz#fd9f916d1f04704ebad7c2f2edbd7868cdc80557"
-  integrity sha512-+3ba2T3byPzsYcjwyBjYfAE1CS4jcnykyF2BSJyE3hV0b//TOQIAGWpMe17RZCItXSozyDfkxYdPncFCtLheWA==
+cql-execution@^1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/cql-execution/-/cql-execution-1.4.4.tgz#13b1587a7d8739150f25e5c54473d50bf8ab3e81"
+  integrity sha512-nQQopJ+c6aGcwBvZe9j6Sv1tBK6ZZyn/Ql+jWr4a+y4h59Qbsu1nd+y4+kxVkH75J9d/g/hLxw0IZl9vapTn+Q==
   dependencies:
     moment "^2.20.1"
     ucum "0.0.7"

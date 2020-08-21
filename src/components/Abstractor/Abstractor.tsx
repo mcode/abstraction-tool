@@ -6,6 +6,7 @@ import Questionnaire from '../Questionnaire';
 import { QuestionnaireLoader } from '../../loaders/QuestionnaireLoader';
 import { LibraryLoader } from '../../loaders/libraryLoader';
 import executeElm from '../../utils/cql-executor';
+import { ValueSetLoader } from '../../loaders/ValueSetLoader';
 
 const Abstractor = () => {
   const [questionnaire, setQuestionnaire] = useState();
@@ -28,10 +29,18 @@ const Abstractor = () => {
 
         if (extension && extension.valueCanonical) {
           const response = await axios.get(extension.valueCanonical);
-          const library = await new LibraryLoader(response.data as R4.ILibrary).fetchELM();
+          const fhirLibrary = response.data as R4.ILibrary;
+          const library = await new LibraryLoader(fhirLibrary).fetchELM();
+
+    
+          const vsResponse = await axios.get('./static/mcode-valuesets.json');
+          const valueSetBundle = vsResponse.data as R4.IBundle;
+          const valueSetLoader = new ValueSetLoader(fhirLibrary,valueSetBundle);
+          const valueSetMap = valueSetLoader.seedValueSets();
 
           // TODO: Modify the answerOptions of the questionnaire to include the results from execution
-          const results = executeElm(patientData!, library, {});
+          const results = executeElm(patientData!, library, valueSetMap);
+          console.log(results)
           setExecutionResults(results);
         }
       } catch (e) {
@@ -48,7 +57,6 @@ const Abstractor = () => {
     <div>
       <p>Patient Data Bundle: {patientData?.entry?.length} entries</p>
       {questionnaire && <Questionnaire questionnaire={questionnaire} />}
-      <p>CQL Execution Results: {executionResults ?? 'none'}</p>
     </div>
   );
 };
