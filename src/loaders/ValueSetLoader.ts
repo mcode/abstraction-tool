@@ -17,9 +17,14 @@ export class ValueSetLoader {
     const valueSetUrls = _.flatten(
       (this.library.dataRequirement ?? []).map(d => d.codeFilter?.filter(cf => cf.valueSet).map(cf => cf.valueSet))
     );
-    valueSetUrls.forEach(async url => {
+    const queries = valueSetUrls.map(async url => {
       const matchingEntry = this.contextBundle.entry?.find(e => e.fullUrl === url);
-      const resource = matchingEntry ? (matchingEntry.resource as R4.IValueSet) : await this.getFromUrl(url!);
+      return matchingEntry ? (matchingEntry.resource as R4.IValueSet) : this.getFromUrl(url!);
+    });
+
+    const resources = await Promise.all(queries);
+
+    resources.forEach(resource => {
       if (resource.id && resource.version && resource.compose) {
         const codes = _.flatten(
           resource.compose.include.map(i => {
