@@ -41,6 +41,9 @@ const Abstractor = () => {
           // TODO: Modify the answerOptions of the questionnaire to include the results from execution
           const results = executeElm(patientData!, library, valueSetMap);
           console.log(results)
+          //Filter results
+          
+
           setExecutionResults(results);
         }
       } catch (e) {
