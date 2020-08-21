@@ -1,3 +1,6 @@
 {
-  "elmServiceUrl": "http://example.com/cql/translator/"
+  "elmServiceUrl": "http://example.com/cql/translator/",
+  "dataSource" : {
+    "type": "file"
+  }
 }
