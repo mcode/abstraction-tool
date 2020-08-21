@@ -33,15 +33,29 @@ const MOCK_URL = 'http://example.com';
 
 const valueSetLoader = new ValueSetLoader(<R4.ILibrary>exampleLibrary, <R4.IBundle>exampleBundle);
 
-test('seeds ValueSets properly using bundle', () => {
-  const valueSetMap = valueSetLoader.seedValueSets();
+test('seeds ValueSets properly using bundle', async () => {
+  nock(MOCK_URL)
+    .get('/example-valueset-3')
+    .reply(200, {
+      resourceType: 'ValueSet',
+      id: 'example-valueset-3',
+      version: '1',
+      compose: {
+        include: [
+          {
+            system: 'http://example.com',
+            concept: [
+              {
+                code: 'vs3-code-1'
+              },
+              {
+                code: 'vs3-code-2'
+              }
+            ]
+          }
+        ]
+      }
+    });
+  const valueSetMap = await valueSetLoader.seedValueSets();
   expect(valueSetMap).toEqual(EXPECTED_MAP);
-});
-
-test('correctly query url for a valueset', async () => {
-  nock(MOCK_URL).get('/').reply(200, EXPECTED_MAP);
-
-  const actualValueSet = await valueSetLoader.getFromUrl(MOCK_URL);
-
-  expect(actualValueSet).toEqual(EXPECTED_MAP);
 });

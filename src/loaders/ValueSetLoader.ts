@@ -12,51 +12,32 @@ export class ValueSetLoader {
     this.contextBundle = contextBundle;
   }
 
-  seedValueSets(): ValueSetMap {
+  async seedValueSets(): Promise<ValueSetMap> {
     const map: ValueSetMap = {};
-    const valueSetIDs = _.flatten(
+    const valueSetUrls = _.flatten(
       (this.library.dataRequirement ?? []).map(d => d.codeFilter?.filter(cf => cf.valueSet).map(cf => cf.valueSet))
     );
-    valueSetIDs.forEach(id => {
-      const matchingEntry = this.contextBundle.entry?.find(e => e.resource?.id === id);
-      if(!matchingEntry) {
-        const matchingEntry2 = this.getFromUrl("http://cts.nlm.nih.gov/fhir");
-        const resource = matchingEntry2.resource as R4.IValueSet;
-        if (resource.id && resource.version && resource.compose) {
-          const codes = _.flatten(
-            resource.compose.include.map(i => {
-              return (i.concept ?? []).map(c => ({
-                code: c.code,
-                system: i.system ?? ''
-              }));
-            })
-          );
-          map[resource.id] = {
-            [resource.version]: codes
-          };
-        }
-      }
-      else {
-        const resource = matchingEntry.resource as R4.IValueSet;
-        if (resource.id && resource.version && resource.compose) {
-          const codes = _.flatten(
-            resource.compose.include.map(i => {
-              return (i.concept ?? []).map(c => ({
-                code: c.code,
-                system: i.system ?? ''
-              }));
-            })
-          );
-          map[resource.id] = {
-            [resource.version]: codes
-          };
-        }
+    valueSetUrls.forEach(async url => {
+      const matchingEntry = this.contextBundle.entry?.find(e => e.fullUrl === url);
+      const resource = matchingEntry ? (matchingEntry.resource as R4.IValueSet) : await this.getFromUrl(url!);
+      if (resource.id && resource.version && resource.compose) {
+        const codes = _.flatten(
+          resource.compose.include.map(i => {
+            return (i.concept ?? []).map(c => ({
+              code: c.code,
+              system: i.system ?? ''
+            }));
+          })
+        );
+        map[resource.id] = {
+          [resource.version]: codes
+        };
       }
     });
     return map;
   }
 
-  async getFromUrl(url: string): Promise<R4.IBundle> {
+  async getFromUrl(url: string): Promise<R4.IValueSet> {
     const response = await axios.get(url);
     return response.data;
   }

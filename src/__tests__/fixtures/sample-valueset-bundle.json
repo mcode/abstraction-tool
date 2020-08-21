@@ -4,6 +4,7 @@
   "type": "collection",
   "entry": [
     {
+      "fullUrl": "http://example.com/example-valueset-1",
       "resource": {
         "resourceType": "ValueSet",
         "id": "example-valueset-1",
@@ -26,6 +27,7 @@
       }
     },
     {
+      "fullUrl": "http://example.com/example-valueset-2",
       "resource": {
         "resourceType": "ValueSet",
         "id": "example-valueset-2",
