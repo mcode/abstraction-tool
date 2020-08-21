@@ -19,7 +19,24 @@ export class ValueSetLoader {
     );
     valueSetIDs.forEach(id => {
       const matchingEntry = this.contextBundle.entry?.find(e => e.resource?.id === id);
-      if (matchingEntry) {
+      if(!matchingEntry) {
+        const matchingEntry2 = this.getFromUrl("http://cts.nlm.nih.gov/fhir");
+        const resource = matchingEntry2.resource as R4.IValueSet;
+        if (resource.id && resource.version && resource.compose) {
+          const codes = _.flatten(
+            resource.compose.include.map(i => {
+              return (i.concept ?? []).map(c => ({
+                code: c.code,
+                system: i.system ?? ''
+              }));
+            })
+          );
+          map[resource.id] = {
+            [resource.version]: codes
+          };
+        }
+      }
+      else {
         const resource = matchingEntry.resource as R4.IValueSet;
         if (resource.id && resource.version && resource.compose) {
           const codes = _.flatten(
