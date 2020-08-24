@@ -18,7 +18,7 @@
         "codeFilter": [
           {
             "path": "code",
-            "valueSet": "example-valueset-1"
+            "valueSet": "http://example.com/example-valueset-1"
           }
         ]
 
@@ -28,7 +28,7 @@
         "codeFilter": [
           {
             "path": "code",
-            "valueSet": "example-valueset-2"
+            "valueSet": "http://example.com/example-valueset-2"
           }
         ]
       },
@@ -37,7 +37,7 @@
         "codeFilter": [
           {
             "path": "code",
-            "valueSet": "example-valueset-3"
+            "valueSet": "http://example.com/example-valueset-3"
           }
         ]
       }
