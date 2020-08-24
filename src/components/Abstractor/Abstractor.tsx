@@ -36,13 +36,15 @@ const Abstractor = () => {
           const vsResponse = await axios.get('./static/mcode-valuesets.json');
           const valueSetBundle = vsResponse.data as R4.IBundle;
           const valueSetLoader = new ValueSetLoader(fhirLibrary,valueSetBundle);
-          const valueSetMap = valueSetLoader.seedValueSets();
+          const valueSetMap = await valueSetLoader.seedValueSets();
 
           // TODO: Modify the answerOptions of the questionnaire to include the results from execution
           const results = executeElm(patientData!, library, valueSetMap);
-          console.log(results)
-          //Filter results
+
+          // TODO: Filter results by querying proper data from the returned FHIR resources.
           
+          // Temporarily logging results to show the output of the CQL execution
+          console.log(results)
 
           setExecutionResults(results);
         }

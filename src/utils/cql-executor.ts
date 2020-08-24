@@ -4,12 +4,11 @@ import { Library, Executor, Repository, CodeService } from 'cql-execution';
 import { PatientSource } from 'cql-exec-fhir';
 
 export default function executeElm(patientRecord: R4.IBundle, elm: any, valueSets: ValueSetMap): any {
-  if (patientRecord && elm){
+  if (patientRecord && elm) {
     let lib;
     if (valueSets) {
       lib = new Library(elm, new Repository(valueSets));
-    }
-    else {
+    } else {
       lib = new Library(elm);
     }
     const codeService = new CodeService(valueSets);
