@@ -43,12 +43,14 @@ const Abstractor = () => {
           const results = executeElm(patientData!, library, valueSetMap);
 
           // TODO: Filter results by querying proper data from the returned FHIR resources.
-          const filteredResults = resultsProcessing(results);
+          //const filteredResults = resultsProcessing(results);
+
           // Temporarily logging results to show the output of the CQL execution
           console.log(results);
-          console.log(typeof(results));
 
           setExecutionResults(results);
+  
+
         }
       } catch (e) {
         console.error(`Error loading questionnaire data: ${e.message}`);
