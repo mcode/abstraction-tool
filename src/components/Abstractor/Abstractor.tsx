@@ -7,6 +7,7 @@ import { QuestionnaireLoader } from '../../loaders/QuestionnaireLoader';
 import { LibraryLoader } from '../../loaders/libraryLoader';
 import executeElm from '../../utils/cql-executor';
 import { ValueSetLoader } from '../../loaders/ValueSetLoader';
+import resultsProcessing from '../../utils/results-processing';
 
 const Abstractor = () => {
   const [questionnaire, setQuestionnaire] = useState();
@@ -42,9 +43,10 @@ const Abstractor = () => {
           const results = executeElm(patientData!, library, valueSetMap);
 
           // TODO: Filter results by querying proper data from the returned FHIR resources.
-          
+          const filteredResults = resultsProcessing(results);
           // Temporarily logging results to show the output of the CQL execution
-          console.log(results)
+          console.log(results);
+          console.log(typeof(results));
 
           setExecutionResults(results);
         }
