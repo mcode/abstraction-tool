@@ -7,7 +7,7 @@ import { QuestionnaireLoader } from '../../loaders/QuestionnaireLoader';
 import { LibraryLoader } from '../../loaders/libraryLoader';
 import executeElm from '../../utils/cql-executor';
 import { ValueSetLoader } from '../../loaders/ValueSetLoader';
-import resultsProcessing from '../../utils/results-processing';
+// import resultsProcessing from '../../utils/results-processing';
 
 const Abstractor = () => {
   const [questionnaire, setQuestionnaire] = useState();
