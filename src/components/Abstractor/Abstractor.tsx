@@ -45,9 +45,6 @@ const Abstractor = () => {
           // TODO: Filter results by querying proper data from the returned FHIR resources.
           //const filteredResults = resultsProcessing(results);
 
-          // Temporarily logging results to show the output of the CQL execution
-          console.log(results);
-
           setExecutionResults(results);
   
 
@@ -61,6 +58,11 @@ const Abstractor = () => {
       load();
     }
   }, [patientData]);
+
+  // Temporarily logging results to show the output of the CQL execution
+  if (executionResults) {
+    console.log(executionResults);
+  }
 
   return (
     <div>
