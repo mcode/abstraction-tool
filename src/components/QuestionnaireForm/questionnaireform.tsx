@@ -1,7 +1,15 @@
-import React, { Component } from "react";
-import "./QuestionnaireForm.css";
- export default class QuestionnaireForm extends Component {
-   constructor(props) {
+import React, { Component, ReactNode} from "react";
+//import "./QuestionnaireForm.css";
+import { R4 } from "@ahryman40k/ts-fhir-types";
+
+interface Props {
+  fhirVersion: string;
+  qform: R4.IQuestionnaire;
+}
+
+ export default class QuestionnaireForm extends Component <Props> {
+
+   constructor(props: Props) {
      super(props);
         this.state = {
           containedResources: null,
@@ -15,49 +23,16 @@ import "./QuestionnaireForm.css";
           fullView: true,
           turnOffValues: [],
           useSavedResponse: false,
-          savedResponse: null
+          savedResponse: null,
         };
+        //console.log(props.qform);
     }
 
-    componentWillMount() {
-      // setup
-      // get all contained resources
-      let partialResponse = localStorage.getItem(this.props.qform.id);
-      let saved_response = false;
-  
-      if (partialResponse) {
-        let result = confirm(
-          "Found previously saved form. Do you want to load existing data from saved from?"
-        );
-  
-        if (result) {
-          //this.state.savedResponse = JSON.parse(partialResponse);
-          this.setState({ savedResponse: JSON.parse(partialResponse) })
-          saved_response = true;
-        } else {
-          localStorage.removeItem(this.props.qform.id);
-        }
-      }
-  
-      // If not using saved QuestionnaireResponse, create a new one
-      let newResponse = {
-        resourceType: 'QuestionnaireResponse',
-        status: 'draft',
-        item: []
-      }
-  
-      const items = this.props.qform.item;
-      this.prepopulate(items, newResponse.item, saved_response)
-  
-      if (!saved_response) {
-        this.state.savedResponse = newResponse
-      }
-    }
 
     componentDidMount() {
-      console.log(JSON.stringify(this.props.qform));
-      console.log(JSON.stringify(this.state.savedResponse));
-      let lform = LForms.Util.convertFHIRQuestionnaireToLForms(this.props.qform, this.props.fhirVersion);
+      //console.log(this.props.qform);
+      let lform = window.LForms.Util.convertFHIRQuestionnaireToLForms(this.props.qform);
+      console.log(lform);
   
       lform.templateOptions = {
         showFormHeader: false,
@@ -69,12 +44,8 @@ import "./QuestionnaireForm.css";
         //showCodingInstruction: true
       };
   
-      if (this.state.savedResponse) {
-        lform = LForms.Util.mergeFHIRDataIntoLForms("QuestionnaireResponse", this.state.savedResponse, lform, this.props.fhirVersion)
-      }
-  
-      console.log(JSON.stringify(lform));
-      LForms.Util.addFormToPage(lform, "formContainer")
+      //console.log(JSON.stringify(lform));
+      window.LForms.Util.addFormToPage(lform, "formContainer")
     }
 
     render() {

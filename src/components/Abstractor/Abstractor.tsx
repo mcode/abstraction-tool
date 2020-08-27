@@ -6,9 +6,12 @@ import Questionnaire from '../Questionnaire';
 import { QuestionnaireLoader } from '../../loaders/QuestionnaireLoader';
 import { LibraryLoader } from '../../loaders/libraryLoader';
 import executeElm from '../../utils/cql-executor';
+import QuestionnaireForm from '../QuestionnaireForm';
+
+const defaultQuestionnaire :R4.IQuestionnaire = {resourceType: 'Questionnaire', status: R4.QuestionnaireStatusKind._draft}
 
 const Abstractor = () => {
-  const [questionnaire, setQuestionnaire] = useState();
+  const [questionnaire, setQuestionnaire] = useState(defaultQuestionnaire);
   const [executionResults, setExecutionResults] = useState();
   const { patientData } = usePatient();
 
@@ -47,7 +50,7 @@ const Abstractor = () => {
   return (
     <div>
       <p>Patient Data Bundle: {patientData?.entry?.length} entries</p>
-      {questionnaire && <Questionnaire questionnaire={questionnaire} />}
+      {questionnaire && <QuestionnaireForm qform={questionnaire} fhirVersion={'R4'} />}
       <p>CQL Execution Results: {executionResults ?? 'none'}</p>
     </div>
   );

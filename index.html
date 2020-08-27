@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE11">
+    <title>App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
+    <link href="https://clinicaltables.nlm.nih.gov/lforms-versions/25.1.2/styles/lforms.min.css" media="screen"
+      rel="stylesheet" />
+  </head>
+<body>
+  <link href="https://clinicaltables.nlm.nih.gov/lforms-versions/13.2.0/styles/lforms.min.css" media="screen" rel="stylesheet" />
+  <div id="formContainer">
+  </div>
+  <script src="https://clinicaltables.nlm.nih.gov/lforms-versions/13.2.0/lforms.min.js"></script>
+  <script>
+    var formDef = {
+    code: "X-001",
+    name: "Demo form",
+    items: [{
+    "questionCode": "X-002",
+    "question": "Eye color"
+    }],
+    templateOptions:{viewMode: 'lg'}
+    };
+    var defaultQuestionnaire = {resourceType: 'Questionnaire'}
+    var lform = LForms.Util.convertFHIRQuestionnaireToLForms(defaultQuestionnaire, 'R4');
+    LForms.Util.addFormToPage(lform, 'formContainer');
+  </script>
+</body>
+</html>
