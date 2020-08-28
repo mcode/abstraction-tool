@@ -3,6 +3,7 @@
   "type": "collection",
   "entry": [
     {
+      "fullUrl": "urn:uuid:mcode-cancer-body-location-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-cancer-body-location-vs",
@@ -50,6 +51,7 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:mcode-cancer-disease-status-evidence-type-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-cancer-disease-status-evidence-type-vs",
@@ -112,6 +114,7 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:mcode-cancer-disorder-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-cancer-disorder-vs",
@@ -5338,6 +5341,7 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:mcode-cancer-related-surgical-procedure-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-cancer-related-surgical-procedure-vs",
@@ -6088,6 +6092,7 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:mcode-cancer-staging-system-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-cancer-staging-system-vs",
@@ -6142,6 +6147,7 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:mcode-clinvar-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-clinvar-vs",
@@ -6182,6 +6188,7 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:mcode-comorbid-condition-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-comorbid-condition-vs",
@@ -20446,6 +20453,7 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:mcode-condition-status-trend-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-condition-status-trend-vs",
@@ -20508,6 +20516,7 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:mcode-genetic-specimen-type-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-genetic-specimen-type-vs",
@@ -20674,6 +20683,7 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:mcode-hgnc-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-hgnc-vs",
@@ -20714,6 +20724,7 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:mcode-hgvs-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-hgvs-vs",
@@ -20754,6 +20765,7 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:mcode-histology-morphology-behavior-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-histology-morphology-behavior-vs",
@@ -20876,6 +20888,7 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:mcode-laterality-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-laterality-vs",
@@ -20938,6 +20951,7 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:mcode-primary-or-uncertain-behavior-cancer-disorder-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-primary-or-uncertain-behavior-cancer-disorder-vs",
@@ -25954,6 +25968,7 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:mcode-radiation-procedure-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-radiation-procedure-vs",
@@ -26016,6 +26031,7 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:mcode-radiation-target-body-site-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-radiation-target-body-site-vs",
@@ -26338,6 +26354,7 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:mcode-secondary-cancer-disorder-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-secondary-cancer-disorder-vs",
@@ -26611,6 +26628,7 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:mcode-tnm-distant-metastases-category-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-tnm-distant-metastases-category-vs",
@@ -26651,6 +26669,7 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:mcode-tnm-primary-tumor-category-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-tnm-primary-tumor-category-vs",
@@ -26691,6 +26710,7 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:mcode-tnm-regional-nodes-category-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-tnm-regional-nodes-category-vs",
@@ -26731,6 +26751,7 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:mcode-tnm-stage-group-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-tnm-stage-group-vs",
@@ -26771,6 +26792,7 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:mcode-treatment-intent-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-treatment-intent-vs",
@@ -26821,6 +26843,7 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:mcode-treatment-termination-reason-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-treatment-termination-reason-vs",
@@ -26891,6 +26914,7 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:mcode-tumor-marker-test-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-tumor-marker-test-vs",
@@ -27572,6 +27596,7 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:mcode-units-of-length-vs",
       "resource": {
         "resourceType": "ValueSet",
         "id": "mcode-units-of-length-vs",
