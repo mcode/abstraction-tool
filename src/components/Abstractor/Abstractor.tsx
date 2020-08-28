@@ -5,6 +5,8 @@ import { usePatient } from '../PatientProvider';
 import { QuestionnaireLoader } from '../../loaders/QuestionnaireLoader';
 import { LibraryLoader } from '../../loaders/libraryLoader';
 import executeElm from '../../utils/cql-executor';
+import { ValueSetLoader } from '../../loaders/ValueSetLoader';
+// import resultsProcessing from '../../utils/results-processing';
 
 const defaultQuestionnaire :R4.IQuestionnaire = {resourceType: 'Questionnaire', status: R4.QuestionnaireStatusKind._draft}
 
@@ -31,11 +33,24 @@ const Abstractor = () => {
 
         if (extension && extension.valueCanonical) {
           const response = await axios.get(extension.valueCanonical);
-          const library = await new LibraryLoader(response.data as R4.ILibrary).fetchELM();
+          const fhirLibrary = response.data as R4.ILibrary;
+          const library = await new LibraryLoader(fhirLibrary).fetchELM();
+
+    
+          const vsResponse = await axios.get('./static/mcode-valuesets.json');
+          const valueSetBundle = vsResponse.data as R4.IBundle;
+          const valueSetLoader = new ValueSetLoader(fhirLibrary,valueSetBundle);
+          const valueSetMap = await valueSetLoader.seedValueSets();
 
           // TODO: Modify the answerOptions of the questionnaire to include the results from execution
-          const results = executeElm(patientData!, library, {});
+          const results = executeElm(patientData!, library, valueSetMap);
+
+          // TODO: Filter results by querying proper data from the returned FHIR resources.
+          //const filteredResults = resultsProcessing(results);
+
           setExecutionResults(results);
+  
+
         }
       } catch (e) {
         console.error(`Error loading questionnaire data: ${e.message}`);
@@ -47,7 +62,6 @@ const Abstractor = () => {
     }
   }, [patientData]);
   return <div id="formContainer"></div>
-
 };
 
 export default Abstractor;
