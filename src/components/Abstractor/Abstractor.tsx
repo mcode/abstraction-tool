@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { R4 } from '@ahryman40k/ts-fhir-types';
 import { usePatient } from '../PatientProvider';
-import Questionnaire from '../Questionnaire';
 import { QuestionnaireLoader } from '../../loaders/QuestionnaireLoader';
 import { LibraryLoader } from '../../loaders/libraryLoader';
 import executeElm from '../../utils/cql-executor';
-import QuestionnaireForm from '../QuestionnaireForm';
 
 const defaultQuestionnaire :R4.IQuestionnaire = {resourceType: 'Questionnaire', status: R4.QuestionnaireStatusKind._draft}
 
@@ -22,6 +20,8 @@ const Abstractor = () => {
       const url = './static/mcode-questionnaire.json';
       try {
         const questionnaireResource = await questionnaireLoader.getFromUrl(url);
+        const lform = window.LForms.Util.convertFHIRQuestionnaireToLForms(questionnaireResource, 'R4');
+        window.LForms.Util.addFormToPage(lform, "formContainer");
         setQuestionnaire(questionnaireResource);
 
         // Get FHIR Library
@@ -46,14 +46,8 @@ const Abstractor = () => {
       load();
     }
   }, [patientData]);
+  return <div id="formContainer"></div>
 
-  return (
-    <div>
-      <p>Patient Data Bundle: {patientData?.entry?.length} entries</p>
-      {questionnaire && <QuestionnaireForm qform={questionnaire} fhirVersion={'R4'} />}
-      <p>CQL Execution Results: {executionResults ?? 'none'}</p>
-    </div>
-  );
 };
 
 export default Abstractor;
