@@ -59,7 +59,7 @@
       "codeFilter": [
         {
           "path": "code",
-          "valueSet": "mcode-radiation-procedure-vs"
+          "valueSet": "urn:uuid:mcode-radiation-procedure-vs"
         }
       ]
     },
@@ -68,7 +68,7 @@
       "codeFilter": [
         {
           "path": "code",
-          "valueSet": "mcode-cancer-related-surgical-procedure-vs"
+          "valueSet": "urn:uuid:mcode-cancer-related-surgical-procedure-vs"
         }
       ]
     },
@@ -77,7 +77,7 @@
       "codeFilter": [
         {
           "path": "code",
-          "valueSet": "mcode-comorbid-condition-vs"
+          "valueSet": "urn:uuid:mcode-comorbid-condition-vs"
         }
       ]
     },
@@ -100,7 +100,7 @@
       "codeFilter": [
         {
           "path": "code",
-          "valueSet": "mcode-genetic-specimen-type-vs"
+          "valueSet": "urn:uuid:mcode-genetic-specimen-type-vs"
         }
       ]
     },
@@ -137,7 +137,7 @@
       "codeFilter": [
         {
           "path": "code",
-          "valueSet": "mcode-primary-or-uncertain-behavior-cancer-disorder-vs"
+          "valueSet": "urn:uuid:mcode-primary-or-uncertain-behavior-cancer-disorder-vs"
         }
       ]
     },
@@ -146,7 +146,7 @@
       "codeFilter": [
         {
           "path": "code",
-          "valueSet": "mcode-secondary-cancer-disorder-vs"
+          "valueSet": "urn:uuid:mcode-secondary-cancer-disorder-vs"
         }
       ]
     },
@@ -267,7 +267,7 @@
       "codeFilter": [
         {
           "path": "code",
-          "valueSet": "mcode-tumor-marker-test-vs"
+          "valueSet": "urn:uuid:mcode-tumor-marker-test-vs"
         }
       ]
     }
