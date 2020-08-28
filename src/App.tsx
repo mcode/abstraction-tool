@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { PatientProvider } from './components/PatientProvider';
 import Abstractor from './components/Abstractor';
 
