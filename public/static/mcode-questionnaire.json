@@ -6,7 +6,7 @@
   "extension": [
     {
       "url": "http://hl7.org/fhir/StructureDefinition/cqf-library",
-      "valueCanonical": "Library/mcode"
+      "valueCanonical": "./static/mcode-library.json"
     }
   ],
   "item": [
