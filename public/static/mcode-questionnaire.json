@@ -1,12 +1,12 @@
 {
   "resourceType": "Questionnaire",
-  "id": "HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1",
-  "title": "HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1",
+  "id": "mcode",
+  "title": "mcode",
   "status": "draft",
   "extension": [
     {
       "url": "http://hl7.org/fhir/StructureDefinition/cqf-library",
-      "valueCanonical": "Library/HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1"
+      "valueCanonical": "Library/mcode"
     }
   ],
   "item": [
@@ -18,7 +18,7 @@
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
           "valueExpression": {
             "language": "text/cql",
-            "expression": "\"HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1\".CancerDiseaseStatus"
+            "expression": "\"mcode\".CancerDiseaseStatus"
           }
         }
       ],
@@ -32,7 +32,7 @@
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
           "valueExpression": {
             "language": "text/cql",
-            "expression": "\"HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1\".CancerGeneticVariant"
+            "expression": "\"mcode\".CancerGeneticVariant"
           }
         }
       ],
@@ -46,7 +46,7 @@
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
           "valueExpression": {
             "language": "text/cql",
-            "expression": "\"HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1\".CancerGenomicsReport"
+            "expression": "\"mcode\".CancerGenomicsReport"
           }
         }
       ],
@@ -60,7 +60,7 @@
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
           "valueExpression": {
             "language": "text/cql",
-            "expression": "\"HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1\".CancerRelatedRadiationProcedure"
+            "expression": "\"mcode\".CancerRelatedRadiationProcedure"
           }
         }
       ],
@@ -74,7 +74,7 @@
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
           "valueExpression": {
             "language": "text/cql",
-            "expression": "\"HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1\".CancerRelatedSurgicalProcedure"
+            "expression": "\"mcode\".CancerRelatedSurgicalProcedure"
           }
         }
       ],
@@ -88,7 +88,7 @@
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
           "valueExpression": {
             "language": "text/cql",
-            "expression": "\"HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1\".ComorbidCondition"
+            "expression": "\"mcode\".ComorbidCondition"
           }
         }
       ],
@@ -102,7 +102,7 @@
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
           "valueExpression": {
             "language": "text/cql",
-            "expression": "\"HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1\".ECOGPerformanceStatus"
+            "expression": "\"mcode\".ECOGPerformanceStatus"
           }
         }
       ],
@@ -116,7 +116,7 @@
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
           "valueExpression": {
             "language": "text/cql",
-            "expression": "\"HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1\".GeneticSpecimen"
+            "expression": "\"mcode\".GeneticSpecimen"
           }
         }
       ],
@@ -130,7 +130,7 @@
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
           "valueExpression": {
             "language": "text/cql",
-            "expression": "\"HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1\".GenomicRegionStudied"
+            "expression": "\"mcode\".GenomicRegionStudied"
           }
         }
       ],
@@ -144,7 +144,7 @@
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
           "valueExpression": {
             "language": "text/cql",
-            "expression": "\"HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1\".KarnofskyPerformanceStatus"
+            "expression": "\"mcode\".KarnofskyPerformanceStatus"
           }
         }
       ],
@@ -158,7 +158,7 @@
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
           "valueExpression": {
             "language": "text/cql",
-            "expression": "\"HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1\".PrimaryCancerCondition"
+            "expression": "\"mcode\".PrimaryCancerCondition"
           }
         }
       ],
@@ -172,7 +172,7 @@
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
           "valueExpression": {
             "language": "text/cql",
-            "expression": "\"HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1\".SecondaryCancerCondition"
+            "expression": "\"mcode\".SecondaryCancerCondition"
           }
         }
       ],
@@ -186,7 +186,7 @@
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
           "valueExpression": {
             "language": "text/cql",
-            "expression": "\"HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1\".TNMClinicalDistantMetastasesCategory"
+            "expression": "\"mcode\".TNMClinicalDistantMetastasesCategory"
           }
         }
       ],
@@ -200,7 +200,7 @@
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
           "valueExpression": {
             "language": "text/cql",
-            "expression": "\"HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1\".TNMClinicalPrimaryTumorCategory"
+            "expression": "\"mcode\".TNMClinicalPrimaryTumorCategory"
           }
         }
       ],
@@ -214,7 +214,7 @@
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
           "valueExpression": {
             "language": "text/cql",
-            "expression": "\"HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1\".TNMClinicalRegionalNodesCategory"
+            "expression": "\"mcode\".TNMClinicalRegionalNodesCategory"
           }
         }
       ],
@@ -228,7 +228,7 @@
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
           "valueExpression": {
             "language": "text/cql",
-            "expression": "\"HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1\".TNMClinicalStageGroup"
+            "expression": "\"mcode\".TNMClinicalStageGroup"
           }
         }
       ],
@@ -242,7 +242,7 @@
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
           "valueExpression": {
             "language": "text/cql",
-            "expression": "\"HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1\".TNMPathologicalDistantMetastasesCategory"
+            "expression": "\"mcode\".TNMPathologicalDistantMetastasesCategory"
           }
         }
       ],
@@ -256,7 +256,7 @@
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
           "valueExpression": {
             "language": "text/cql",
-            "expression": "\"HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1\".TNMPathologicalPrimaryTumorCategory"
+            "expression": "\"mcode\".TNMPathologicalPrimaryTumorCategory"
           }
         }
       ],
@@ -270,7 +270,7 @@
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
           "valueExpression": {
             "language": "text/cql",
-            "expression": "\"HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1\".TNMPathologicalRegionalNodesCategory"
+            "expression": "\"mcode\".TNMPathologicalRegionalNodesCategory"
           }
         }
       ],
@@ -284,7 +284,7 @@
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
           "valueExpression": {
             "language": "text/cql",
-            "expression": "\"HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1\".TNMPathologicalStageGroup"
+            "expression": "\"mcode\".TNMPathologicalStageGroup"
           }
         }
       ],
@@ -298,7 +298,7 @@
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
           "valueExpression": {
             "language": "text/cql",
-            "expression": "\"HL7FHIRImplementationGuideminimalCommonOncologyDataElementsmCODERelease1USRealmSTU1\".TumorMarker"
+            "expression": "\"mcode\".TumorMarker"
           }
         }
       ],
