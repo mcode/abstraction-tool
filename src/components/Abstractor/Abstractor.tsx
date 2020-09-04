@@ -6,7 +6,7 @@ import { QuestionnaireLoader } from '../../loaders/QuestionnaireLoader';
 import { LibraryLoader } from '../../loaders/libraryLoader';
 import executeElm from '../../utils/cql-executor';
 import { ValueSetLoader } from '../../loaders/ValueSetLoader';
-// import resultsProcessing from '../../utils/results-processing';
+import resultsProcessing from '../../utils/results-processing';
 
 //const defaultQuestionnaire: R4.IQuestionnaire = {
 //resourceType: 'Questionnaire',
@@ -46,10 +46,11 @@ const Abstractor = () => {
 
           // TODO: Modify the answerOptions of the questionnaire to include the results from execution
           const results = executeElm(patientData!, library, valueSetMap);
-          console.log(results);
+          //console.log(results);
 
           // TODO: Filter results by querying proper data from the returned FHIR resources.
-          //const filteredResults = resultsProcessing(results);
+          const filteredResults = resultsProcessing(results);
+          console.log(filteredResults)
 
           //setExecutionResults(results);
         }
