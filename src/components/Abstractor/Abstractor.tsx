@@ -25,7 +25,9 @@ const Abstractor = () => {
       const url = './static/mcode-questionnaire.json';
       try {
         const questionnaireResource = await questionnaireLoader.getFromUrl(url);
+        console.log(questionnaireResource);
         const lform = window.LForms.Util.convertFHIRQuestionnaireToLForms(questionnaireResource, 'R4');
+        console.log(lform)
         window.LForms.Util.addFormToPage(lform, 'formContainer');
         //setQuestionnaire(questionnaireResource);
 

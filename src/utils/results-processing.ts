@@ -11,8 +11,13 @@ export default function resultsProcessing(cqlResults: any): any {
     let resource = igResources[key];
     //console.log(resource);
     if (resource.length > 0){
+
       console.log(key);
       console.log(resource);
+
+      // Also take in a questionnaire resource
+      
+
     }
   }
 
