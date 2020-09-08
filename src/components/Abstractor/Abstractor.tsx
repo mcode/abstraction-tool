@@ -6,7 +6,7 @@ import { QuestionnaireLoader } from '../../loaders/QuestionnaireLoader';
 import { LibraryLoader } from '../../loaders/libraryLoader';
 import executeElm from '../../utils/cql-executor';
 import { ValueSetLoader } from '../../loaders/ValueSetLoader';
-import resultsProcessing from '../../utils/results-processing';
+import questionnaireUpdater from '../../utils/results-processing';
 
 //const defaultQuestionnaire: R4.IQuestionnaire = {
 //resourceType: 'Questionnaire',
@@ -25,11 +25,6 @@ const Abstractor = () => {
       const url = './static/mcode-questionnaire.json';
       try {
         const questionnaireResource = await questionnaireLoader.getFromUrl(url);
-        console.log(questionnaireResource);
-        const lform = window.LForms.Util.convertFHIRQuestionnaireToLForms(questionnaireResource, 'R4');
-        console.log(lform)
-        window.LForms.Util.addFormToPage(lform, 'formContainer');
-        //setQuestionnaire(questionnaireResource);
 
         // Get FHIR Library
         const extension = (questionnaireResource as R4.IQuestionnaire).extension?.find(
@@ -46,13 +41,19 @@ const Abstractor = () => {
           const valueSetLoader = new ValueSetLoader(fhirLibrary, valueSetBundle);
           const valueSetMap = await valueSetLoader.seedValueSets();
 
-          // TODO: Modify the answerOptions of the questionnaire to include the results from execution
           const results = executeElm(patientData!, library, valueSetMap);
           //console.log(results);
 
           // TODO: Filter results by querying proper data from the returned FHIR resources.
-          const filteredResults = resultsProcessing(results);
+          // TODO: Modify the answerOptions of the questionnaire to include the results from execution
+          const filteredResults = questionnaireUpdater(results, questionnaireResource);
           console.log(filteredResults)
+
+          const lform = window.LForms.Util.convertFHIRQuestionnaireToLForms(questionnaireResource, 'R4');
+          window.LForms.Util.addFormToPage(lform, 'formContainer');
+          //setQuestionnaire(questionnaireResource);
+
+
 
           //setExecutionResults(results);
         }
