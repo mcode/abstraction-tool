@@ -20,7 +20,7 @@ export default function questionnaireUpdater(cqlResults: any, questionnaire: R4.
     if (resource.length > 0){
 
       //console.log(key);
-      //console.log(resource);
+      console.log(resource);
 
       for (let questionnaireItem in questionnaireItems) {
         let possibleMatch = questionnaireItems[questionnaireItem]["linkId"];
@@ -31,7 +31,15 @@ export default function questionnaireUpdater(cqlResults: any, questionnaire: R4.
             questionnaireItems[questionnaireItem].answerOption.push(resource);
           }
           else {
-            questionnaireItems[questionnaireItem].answerOption = resource;
+            let answerOptionArray = [];
+            const newAnswerOption = {
+              valueReference: {
+                reference: resource,
+                display: resource.code
+              }
+            };
+            answerOptionArray.push(newAnswerOption);
+            questionnaireItems[questionnaireItem].answerOption = answerOptionArray;
           }
         }
       }
