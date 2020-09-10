@@ -44,6 +44,7 @@ const Abstractor = () => {
           const results = executeElm(patientData!, library, valueSetMap);
 
           const updatedQuestionnaire = questionnaireUpdater(results, questionnaireResource);
+          // Temporary console log to show questionnaire with answer options
           console.log(updatedQuestionnaire);
 
           const lform = window.LForms.Util.convertFHIRQuestionnaireToLForms(updatedQuestionnaire, 'R4');
