@@ -43,9 +43,8 @@ const Abstractor = () => {
 
           const results = executeElm(patientData!, library, valueSetMap);
 
-          // TODO: Filter results by querying proper data from the returned FHIR resources.
-          // TODO: Modify the answerOptions of the questionnaire to include the results from execution
           const updatedQuestionnaire = questionnaireUpdater(results, questionnaireResource);
+          console.log(updatedQuestionnaire);
 
           const lform = window.LForms.Util.convertFHIRQuestionnaireToLForms(updatedQuestionnaire, 'R4');
           window.LForms.Util.addFormToPage(lform, 'formContainer');
