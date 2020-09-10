@@ -1,58 +1,57 @@
 import { R4 } from "@ahryman40k/ts-fhir-types";
 
 export default function questionnaireUpdater(cqlResults: any, questionnaire: R4.IQuestionnaire): any {
-  // TODO: Process FHIR resources returned from CQL Execution
 
+  // Object Containing Questionnaire Items 
   let questionnaireItems: any = questionnaire.item;
-  console.log((questionnaire));
+  console.log((questionnaireItems));
 
-  // Get each nonempty result
+  // Get Non-Empty Patient Results
   const patientResults = cqlResults.patientResults;
-  //console.log(patientResults);
   const patientID = Object.keys(patientResults)[0];
   const igResources = cqlResults.patientResults[patientID];
 
-  //console.log(igResources)
-
   for (let key in igResources) {
-    let resource = igResources[key];
-    //console.log(resource);
-    if (resource.length > 0){
+    let resourceList = igResources[key];
+    if (resourceList.length > 0) {
 
-      //console.log(key);
-      console.log(resource);
+      // Accomodate for the return of multiple resources (For now this will just iterate over 1 resource)
+      for (let fhirResource in resourceList) {
 
-      for (let questionnaireItem in questionnaireItems) {
-        let possibleMatch = questionnaireItems[questionnaireItem]["linkId"];
-        if (possibleMatch === key) {
-          console.log(possibleMatch);
-          console.log(questionnaireItems[questionnaireItem].answerOption);
-          if (questionnaireItems[questionnaireItem].answerOption) {
-            questionnaireItems[questionnaireItem].answerOption.push(resource);
-          }
-          else {
-            let answerOptionArray = [];
-            const newAnswerOption = {
-              valueReference: {
-                reference: resource,
-                display: resource.code
-              }
-            };
-            answerOptionArray.push(newAnswerOption);
-            questionnaireItems[questionnaireItem].answerOption = answerOptionArray;
+        // Match the FHIR Object to the Correspinding Questionnaire LinkID
+        for (let r in questionnaireItems) {
+          let possibleMatch = questionnaireItems[r]["linkId"];
+
+          if (possibleMatch === key) {
+            console.log(possibleMatch);
+
+            const answerOption = createAnswerOption(resourceList[fhirResource]);
+
+            if (!questionnaireItems[r].answerOption) {
+              //console.log([answerOption.valueReference.reference]);
+              questionnaireItems[r].answerOption = [answerOption];
+            }
+            else {
+              questionnaireItems[r].answerOption.push(answerOption);
+            }
           }
         }
       }
-      console.log(questionnaireItems);
-
-      // Also take in a questionnaire resource
-      
     }
   }
+  questionnaire.item = questionnaireItems;
+  return questionnaire;
 
+  function createAnswerOption(fhirObject: any) {
+    let referenceLocation = ( fhirObject._json.resourceType + "/" + fhirObject.id.value );
+    // Format answer option
+    const referenceObject = {
+      valueReference: {
+        reference: referenceLocation,
+        display: fhirObject.code.coding[0].display.value
+      }
+    };
+    return referenceObject;
+  }
 
-  // Get each nonempty result
-  // Get name of expression
-  // Match with linkID of questionnaire
-  return igResources;
 }

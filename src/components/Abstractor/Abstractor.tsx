@@ -42,18 +42,14 @@ const Abstractor = () => {
           const valueSetMap = await valueSetLoader.seedValueSets();
 
           const results = executeElm(patientData!, library, valueSetMap);
-          //console.log(results);
 
           // TODO: Filter results by querying proper data from the returned FHIR resources.
           // TODO: Modify the answerOptions of the questionnaire to include the results from execution
-          const filteredResults = questionnaireUpdater(results, questionnaireResource);
-          console.log(filteredResults)
+          const updatedQuestionnaire = questionnaireUpdater(results, questionnaireResource);
 
-          const lform = window.LForms.Util.convertFHIRQuestionnaireToLForms(questionnaireResource, 'R4');
+          const lform = window.LForms.Util.convertFHIRQuestionnaireToLForms(updatedQuestionnaire, 'R4');
           window.LForms.Util.addFormToPage(lform, 'formContainer');
           //setQuestionnaire(questionnaireResource);
-
-
 
           //setExecutionResults(results);
         }
