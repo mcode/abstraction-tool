@@ -42,16 +42,22 @@ const Abstractor = () => {
           const valueSetMap = await valueSetLoader.seedValueSets();
 
           const results = executeElm(patientData!, library, valueSetMap);
+          //setExecutionResults(results);
 
           const updatedQuestionnaire = questionnaireUpdater(results, questionnaireResource);
           // Temporary console log to show questionnaire with answer options
           console.log(updatedQuestionnaire);
 
           const lform = window.LForms.Util.convertFHIRQuestionnaireToLForms(updatedQuestionnaire, 'R4');
+
           window.LForms.Util.addFormToPage(lform, 'formContainer');
           //setQuestionnaire(questionnaireResource);
 
-          //setExecutionResults(results);
+          const qr = window.LForms.Util.getFormFHIRData('QuestionnaireResponse', 'R4', lform);
+          console.log(qr)
+          //window.LForms.Util.mergeFHIRDataIntoLForms("QuestionnaireResponse", qr, lform, "R4");
+
+
         }
       } catch (e) {
         console.error(`Error loading questionnaire data: ${e.message}`);
