@@ -4,17 +4,14 @@ import executeElm from '../../utils/cql-executor';
 import { ValueSetMap } from '../../types/valueset';
 //import resultsProcessing from '../../utils/results-processing';
 
-const Abstractor = ({
-  patientData,
-  library,
-  valueSetMap,
-  questionnaire
-}: {
+export interface Props {
   patientData: R4.IBundle;
   library: any;
   valueSetMap: ValueSetMap;
   questionnaire: R4.IQuestionnaire;
-}) => {
+}
+
+const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props) => {
   useEffect(() => {
     // TODO: Modify the answerOptions of the questionnaire to include the results from execution
     const results = executeElm(patientData!, library, valueSetMap);

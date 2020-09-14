@@ -8,10 +8,16 @@ import { LibraryLoader } from './loaders/libraryLoader';
 import { ValueSetLoader } from './loaders/ValueSetLoader';
 //import resultsProcessing from '../../utils/results-processing';
 
+const defaultQuestionnaire: R4.IQuestionnaire = {
+  resourceType: 'Questionnaire',
+  status: R4.QuestionnaireStatusKind._draft,
+  item: []
+};
+
 const App = () => {
-  const [questionnaire, setQuestionnaire] = useState();
+  const [questionnaire, setQuestionnaire] = useState(defaultQuestionnaire);
   const [library, setLibrary] = useState();
-  const [valueSetMap, setValueSetMap] = useState();
+  const [valueSetMap, setValueSetMap] = useState({});
   const { patientData } = usePatient();
 
   useEffect(() => {
