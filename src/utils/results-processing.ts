@@ -40,10 +40,15 @@ export default function questionnaireUpdater(cqlResults: any, questionnaire: R4.
     let referenceLocation = fhirObject._json.resourceType + '/' + fhirObject.id.value;
     // Format answer option
     const referenceObject = {
-      valueReference: {
-        reference: referenceLocation,
-        display: fhirObject.code.coding[0].display.value
-      }
+      // TODO: Create support for valueReferences in Lforms
+
+      // valueReference: {
+      //   reference: referenceLocation,
+      //   display: fhirObject.code.coding[0].display.value
+      // }
+
+      // Formatting the valueReference object like this for now since this is the only way to preserve the reference in the QuesitonniareResponse without adding full lform support for valueReferences
+      valueReference: referenceLocation
     };
     return referenceObject;
   }

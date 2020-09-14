@@ -49,8 +49,9 @@ const Abstractor = () => {
           console.log(updatedQuestionnaire);
 
           const lform = window.LForms.Util.convertFHIRQuestionnaireToLForms(updatedQuestionnaire, 'R4');
+          console.log(lform);
 
-          window.LForms.Util.addFormToPage(lform, 'formContainer');
+          window.LForms.Util.addFormToPage(lform, 'formContainer', {prepopulate: true});
           //setQuestionnaire(questionnaireResource);
 
           const qr = window.LForms.Util.getFormFHIRData('QuestionnaireResponse', 'R4', lform);
