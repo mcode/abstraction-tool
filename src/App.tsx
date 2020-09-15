@@ -6,6 +6,7 @@ import Abstractor from './components/Abstractor';
 import { QuestionnaireLoader } from './loaders/QuestionnaireLoader';
 import { LibraryLoader } from './loaders/libraryLoader';
 import { ValueSetLoader } from './loaders/ValueSetLoader';
+import { ValueSetMap } from './types/valueset';
 //import resultsProcessing from '../../utils/results-processing';
 
 const defaultQuestionnaire: R4.IQuestionnaire = {
@@ -16,8 +17,8 @@ const defaultQuestionnaire: R4.IQuestionnaire = {
 
 const App = () => {
   const [questionnaire, setQuestionnaire] = useState(defaultQuestionnaire);
-  const [library, setLibrary] = useState();
-  const [valueSetMap, setValueSetMap] = useState({});
+  const [library, setLibrary] = useState(null);
+  const [valueSetMap, setValueSetMap] = useState<ValueSetMap | null>(null);
   const { patientData } = usePatient();
 
   useEffect(() => {
@@ -42,7 +43,7 @@ const App = () => {
           const vsResponse = await axios.get('./static/mcode-valuesets.json');
           const valueSetBundle = vsResponse.data as R4.IBundle;
           const valueSetLoader = new ValueSetLoader(fhirLibrary, valueSetBundle);
-          const valueSetMap = valueSetLoader.seedValueSets();
+          const valueSetMap = await valueSetLoader.seedValueSets();
 
           setLibrary(library);
           setValueSetMap(valueSetMap);
