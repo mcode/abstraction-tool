@@ -37,7 +37,7 @@ export default function questionnaireUpdater(cqlResults: any, questionnaire: R4.
   return questionnaire;
 
   function createAnswerOption(fhirObject: any) {
-    let referenceLocation = fhirObject._json.resourceType + '/' + fhirObject.id.value;
+    const referenceLocation = `${fhirObject._json.resourceType}/${fhirObject.id.value}`;
     // Format answer option
     const referenceObject = {
       valueReference: {
