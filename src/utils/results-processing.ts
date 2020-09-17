@@ -5,6 +5,7 @@ import { R4 } from '@ahryman40k/ts-fhir-types';
 export default function questionnaireUpdater(cqlResults: any, questionnaire: R4.IQuestionnaire): R4.IQuestionnaire {
   // Object Containing Questionnaire Items
   let questionnaireItems: any = questionnaire.item;
+  console.log(cqlResults);
 
   // Get Non-Empty Patient Results
   const patientResults = cqlResults.patientResults;
@@ -35,16 +36,16 @@ export default function questionnaireUpdater(cqlResults: any, questionnaire: R4.
   }
   questionnaire.item = questionnaireItems;
   return questionnaire;
+}
 
-  function createAnswerOption(fhirObject: any) {
-    let referenceLocation = fhirObject._json.resourceType + '/' + fhirObject.id.value;
-    // Format answer option
-    const referenceObject = {
-      valueReference: {
-        reference: referenceLocation,
-        display: fhirObject.code.coding[0].display.value
-      }
-    };
-    return referenceObject;
-  }
+function createAnswerOption(fhirObject: any) {
+  let referenceLocation = fhirObject._json.resourceType + '/' + fhirObject.id.value;
+  // Format answer option
+  const referenceObject = {
+    valueReference: {
+      reference: referenceLocation,
+      display: fhirObject.code.coding[0].display.value
+    }
+  };
+  return referenceObject;
 }
