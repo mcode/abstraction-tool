@@ -19,12 +19,12 @@ export const PatientContext = createContext<PatientContextInterface>({
 });
 
 export const PatientProvider: FC<PatientProviderProps> = memo(({ children }) => {
-  const [patientData, setPatientData] = useState();
+  const [patientData, setPatientData] = useState<R4.IBundle | null>(null);
   const dataSource = getDataSource();
 
   useEffect(() => {
     const data = dataSource?.getData();
-    setPatientData(data);
+    setPatientData(data ?? null);
   }, [dataSource, setPatientData]);
 
   return <PatientContext.Provider value={{ patientData, setPatientData }}>{children}</PatientContext.Provider>;
