@@ -18,8 +18,7 @@ const App = () => {
   const [questionnaire, setQuestionnaire] = useState(defaultQuestionnaire);
   const [library, setLibrary] = useState(null);
   const [valueSetMap, setValueSetMap] = useState<ValueSetMap | null>(null);
-  //const { patientData } = usePatient();
-  const [patientData, setPatient] = useState<R4.IPatient | null>(null);
+  const { patientData } = usePatient();
 
   useEffect(() => {
     async function load() {
@@ -52,20 +51,10 @@ const App = () => {
         console.error(`Error loading questionnaire data: ${e.message}`);
       }
     }
-    // if (patientData) {
-    //   load();
-    // }
+    if (patientData) {
+      load();
+    }
   }, [patientData]);
-
-  // useEffect(() => {
-  //   FHIR.oauth2
-  //   .init({
-  //     clientId: 'Input client id you get when you register the app',
-  //     scope: 'launch/patient openid profile'
-  //   }).then(client => {
-  //     client.patient?.read?.().then((resultPatient: R4.IPatient) => setPatient(resultPatient));
-  //   })
-  // }, [patientData]);
 
   return patientData && questionnaire && library && valueSetMap ? (
     <Abstractor patientData={patientData} questionnaire={questionnaire} library={library} valueSetMap={valueSetMap} />

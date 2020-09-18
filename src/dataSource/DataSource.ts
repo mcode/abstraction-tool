@@ -1,5 +1,5 @@
 import { R4 } from '@ahryman40k/ts-fhir-types';
 
 export abstract class DataSource {
-  abstract getData(...args: any[]): R4.IBundle;
+  abstract async getData(...args: any[]): Promise<R4.IBundle>;
 }
