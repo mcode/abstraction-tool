@@ -3,7 +3,6 @@ import { FileDataSource } from './FileDataSource';
 import { dataSource } from '../config.json';
 import { SmartonFhirDataSource } from './SmartonFhirDataSource';
 
-
 enum dataSourceTypes {
   FILE = 'file',
   SMART = 'smart'

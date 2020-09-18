@@ -23,13 +23,14 @@ export const PatientProvider: FC<PatientProviderProps> = memo(({ children }) => 
   const dataSource = getDataSource();
 
    useEffect(() => {
-     //load patientdata
+     //load patient data
       async function data() {
+        const dataSource = getDataSource();
         const data = await dataSource?.getData();
         setPatientData(data ?? null);
     }
     data()
-  }, [dataSource, setPatientData]);
+  }, []);
 
   return <PatientContext.Provider value={{ patientData, setPatientData }}>{children}</PatientContext.Provider>;
 });
