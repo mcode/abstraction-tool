@@ -14,31 +14,25 @@ export default function questionnaireUpdater(cqlResults: any, questionnaire: R4.
   for (let key in igResources) {
     let resourceList = igResources[key];
     if (resourceList.length > 0) {
-      // Accomodate for the return of multiple resources (for now this will just iterate over 1 resource)
-      //questionnaireItems.find((r: object) => r['linkId'] === key );
-      //console.log(found);
+      // Find corresponding quesionnaire resource
+      const matchingResource = questionnaireItems.find((element: any) => element.linkId === key);
+      const questionnaireItemIndex = questionnaireItems.indexOf(matchingResource);
 
-      //let ansOpt = resourceList.map(createAnswerOption(resourceList[fhirResource]);
-      //console.log(ansOpt);
-
-      for (let fhirResource in resourceList) {
-        // Match the FHIR Object to the Correspinding Questionnaire LinkID
-        for (let r in questionnaireItems) {
-          let possibleMatch = questionnaireItems[r]['linkId'];
-          if (possibleMatch === key) {
-            // Add as an answerOption for the Questionnaire item
-            const answerOption = createAnswerOption(resourceList[fhirResource]);
-
-            if (!questionnaireItems[r].answerOption) {
-              questionnaireItems[r].answerOption = [answerOption];
-            } else {
-              questionnaireItems[r].answerOption.push(answerOption);
-            }
-          }
-        }
+      // Add answerOption element to questionnaire item
+      const answerOptionArray = resourceList.map(createAnswerOption);
+      if (!matchingResource.answerOption) {
+        matchingResource.answerOption = answerOptionArray;
+      } else {
+        matchingResource.answerOption = matchingResource.answerOption.push.apply(
+          matchingResource.answerOption,
+          answerOptionArray
+        );
       }
+      questionnaireItems[questionnaireItemIndex] = matchingResource;
     }
   }
+
+  // Update questionnaire
   questionnaire.item = questionnaireItems;
   return questionnaire;
 }
