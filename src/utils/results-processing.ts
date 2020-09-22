@@ -5,7 +5,6 @@ import { R4 } from '@ahryman40k/ts-fhir-types';
 export default function questionnaireUpdater(cqlResults: any, questionnaire: R4.IQuestionnaire): R4.IQuestionnaire {
   // Object Containing Questionnaire Items
   let questionnaireItems: any = questionnaire.item;
-  console.log(cqlResults);
 
   // Get Non-Empty Patient Results
   const patientResults = cqlResults.patientResults;
@@ -16,6 +15,12 @@ export default function questionnaireUpdater(cqlResults: any, questionnaire: R4.
     let resourceList = igResources[key];
     if (resourceList.length > 0) {
       // Accomodate for the return of multiple resources (for now this will just iterate over 1 resource)
+      //questionnaireItems.find((r: object) => r['linkId'] === key );
+      //console.log(found);
+
+      //let ansOpt = resourceList.map(createAnswerOption(resourceList[fhirResource]);
+      //console.log(ansOpt);
+
       for (let fhirResource in resourceList) {
         // Match the FHIR Object to the Correspinding Questionnaire LinkID
         for (let r in questionnaireItems) {
@@ -39,7 +44,7 @@ export default function questionnaireUpdater(cqlResults: any, questionnaire: R4.
 }
 
 function createAnswerOption(fhirObject: any) {
-  let referenceLocation = fhirObject._json.resourceType + '/' + fhirObject.id.value;
+  const referenceLocation = `${fhirObject._json.resourceType}/${fhirObject.id.value}`;
   // Format answer option
   const referenceObject = {
     valueReference: {

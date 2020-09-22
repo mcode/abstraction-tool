@@ -16,13 +16,16 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
 
     const results = executeElm(patientData!, library, valueSetMap);
 
+    // Get Patient ID
+    const patientID = patientData.entry;
+    console.log(patientID);
+
     const updatedQuestionnaire = questionnaireUpdater(results, questionnaire);
     // Temporary console log to show questionnaire with answer options
     console.log(updatedQuestionnaire);
 
     const lform = window.LForms.Util.convertFHIRQuestionnaireToLForms(updatedQuestionnaire, 'R4');
     window.LForms.Util.addFormToPage(lform, 'formContainer');
-    //setQuestionnaire(questionnaireResource);
 
   }, [patientData, library, valueSetMap, questionnaire]);
 
