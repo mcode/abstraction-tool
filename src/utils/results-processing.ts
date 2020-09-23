@@ -15,7 +15,6 @@ export default function questionnaireUpdater(
     const igResources = cqlResults.patientResults[patientId];
     for (let key in igResources) {
       let resourceList = igResources[key];
-      console.log(resourceList);
       if (resourceList.length > 0) {
         // Find corresponding quesionnaire resource
         const matchingResource = questionnaireItems.find(element => element.linkId === key) as R4.IQuestionnaire_Item;
