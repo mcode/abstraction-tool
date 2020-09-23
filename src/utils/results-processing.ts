@@ -10,7 +10,7 @@ export default function questionnaireUpdater(
   // Object Containing Questionnaire Items
   let questionnaireItems = questionnaire.item;
 
-  if (questionnaireItems !== undefined){
+  if (questionnaireItems !== undefined) {
     // Get Non-Empty Patient Results
     const igResources = cqlResults.patientResults[patientId];
     for (let key in igResources) {

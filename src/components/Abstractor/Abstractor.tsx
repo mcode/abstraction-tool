@@ -14,19 +14,23 @@ export interface Props {
 const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props) => {
   useEffect(() => {
 
-    const results = executeElm(patientData!, library, valueSetMap);
+    const results = executeElm(patientData, library, valueSetMap);
 
-    // Get Patient ID
-    const patientResource = patientData.entry!.find(
-      (bundleEntry: R4.IBundle_Entry) => bundleEntry.resource!.resourceType === "Patient") as R4.IBundle_Entry;
-    const patientID = patientResource.resource!.id as string;
+    try {
+      // Get Patient ID
+      const patientResource = patientData.entry!.find(
+        (bundleEntry: R4.IBundle_Entry) => bundleEntry.resource!.resourceType === "Patient") as R4.IBundle_Entry;
+      const patientID = patientResource.resource!.id as string;
 
-    const updatedQuestionnaire = questionnaireUpdater(results, questionnaire, patientID);
-    // Temporary console log to show questionnaire with answer options
-    console.log(updatedQuestionnaire);
+      const updatedQuestionnaire = questionnaireUpdater(results, questionnaire, patientID);
+      // Temporary console log to show questionnaire with answer options
+      console.log(updatedQuestionnaire);
 
     const lform = window.LForms.Util.convertFHIRQuestionnaireToLForms(updatedQuestionnaire, 'R4');
     window.LForms.Util.addFormToPage(lform, 'formContainer');
+  } catch (e) {
+    console.error(`Error finding patient resource within bundle: ${e.message}`);
+  }
 
   }, [patientData, library, valueSetMap, questionnaire]);
 
