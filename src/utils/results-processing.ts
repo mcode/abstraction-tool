@@ -16,25 +16,21 @@ export default function questionnaireUpdater(
     let resourceList = igResources[key];
     if (resourceList.length > 0) {
       // Find corresponding quesionnaire resource
-      const matchingResource = questionnaireItems.find((element: any) => element.linkId === key);
+      const matchingResource = questionnaireItems.find(element => element.linkId === key);
       const questionnaireItemIndex = questionnaireItems.indexOf(matchingResource);
 
       // Add answerOption element to questionnaire item
       const newAnswerOptions = resourceList.map(createAnswerOption);
-      if (!matchingResource.answerOption) {
+      if (matchingResource.answerOption === undefined || matchingResource.answerOption.length === 0) {
         matchingResource.answerOption = newAnswerOptions;
       } else {
-        matchingResource.answerOption = matchingResource.answerOption.push.apply(
-          matchingResource.answerOption,
-          newAnswerOptions
-        );
+        matchingResource.answerOption = matchingResource.answerOption.concat(newAnswerOptions);
       }
       questionnaireItems[questionnaireItemIndex] = matchingResource;
     }
   }
 
   // Update questionnaire
-  questionnaire.item = questionnaireItems;
   return questionnaire;
 }
 
