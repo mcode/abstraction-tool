@@ -20,13 +20,13 @@ export default function questionnaireUpdater(
       const questionnaireItemIndex = questionnaireItems.indexOf(matchingResource);
 
       // Add answerOption element to questionnaire item
-      const answerOptionArray = resourceList.map(createAnswerOption);
+      const newAnswerOptions = resourceList.map(createAnswerOption);
       if (!matchingResource.answerOption) {
-        matchingResource.answerOption = answerOptionArray;
+        matchingResource.answerOption = newAnswerOptions;
       } else {
         matchingResource.answerOption = matchingResource.answerOption.push.apply(
           matchingResource.answerOption,
-          answerOptionArray
+          newAnswerOptions
         );
       }
       questionnaireItems[questionnaireItemIndex] = matchingResource;
