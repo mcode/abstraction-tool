@@ -2,15 +2,16 @@ import { R4 } from '@ahryman40k/ts-fhir-types';
 
 // Filter results by querying proper data from the returned FHIR resources.
 // Modify the answerOptions of the questionnaire to include the results from execution
-export default function questionnaireUpdater(cqlResults: any, questionnaire: R4.IQuestionnaire): R4.IQuestionnaire {
+export default function questionnaireUpdater(
+  cqlResults: any,
+  questionnaire: R4.IQuestionnaire,
+  patientId: string
+): R4.IQuestionnaire {
   // Object Containing Questionnaire Items
   let questionnaireItems: any = questionnaire.item;
 
   // Get Non-Empty Patient Results
-  const patientResults = cqlResults.patientResults;
-  const patientID = Object.keys(patientResults)[0];
-  const igResources = cqlResults.patientResults[patientID];
-
+  const igResources = cqlResults.patientResults[patientId];
   for (let key in igResources) {
     let resourceList = igResources[key];
     if (resourceList.length > 0) {

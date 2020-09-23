@@ -17,10 +17,10 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
     const results = executeElm(patientData!, library, valueSetMap);
 
     // Get Patient ID
-    //const patientID = patientData.entry;
-    //console.log(patientID);
+    const patientResource: any = patientData.entry!.find((bundleResource: any) => bundleResource.resource.resourceType === "Patient");
+    const patientID = patientResource.resource.id;
 
-    const updatedQuestionnaire = questionnaireUpdater(results, questionnaire);
+    const updatedQuestionnaire = questionnaireUpdater(results, questionnaire, patientID);
     // Temporary console log to show questionnaire with answer options
     console.log(updatedQuestionnaire);
 
