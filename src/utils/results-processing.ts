@@ -8,25 +8,28 @@ export default function questionnaireUpdater(
   patientId: string
 ): R4.IQuestionnaire {
   // Object Containing Questionnaire Items
-  let questionnaireItems: any = questionnaire.item;
+  let questionnaireItems = questionnaire.item;
 
-  // Get Non-Empty Patient Results
-  const igResources = cqlResults.patientResults[patientId];
-  for (let key in igResources) {
-    let resourceList = igResources[key];
-    if (resourceList.length > 0) {
-      // Find corresponding quesionnaire resource
-      const matchingResource = questionnaireItems.find(element => element.linkId === key);
-      const questionnaireItemIndex = questionnaireItems.indexOf(matchingResource);
+  if (questionnaireItems !== undefined){
+    // Get Non-Empty Patient Results
+    const igResources = cqlResults.patientResults[patientId];
+    for (let key in igResources) {
+      let resourceList = igResources[key];
+      console.log(resourceList);
+      if (resourceList.length > 0) {
+        // Find corresponding quesionnaire resource
+        const matchingResource = questionnaireItems.find(element => element.linkId === key) as R4.IQuestionnaire_Item;
+        const questionnaireItemIndex = questionnaireItems.indexOf(matchingResource);
 
-      // Add answerOption element to questionnaire item
-      const newAnswerOptions = resourceList.map(createAnswerOption);
-      if (matchingResource.answerOption === undefined || matchingResource.answerOption.length === 0) {
-        matchingResource.answerOption = newAnswerOptions;
-      } else {
-        matchingResource.answerOption = matchingResource.answerOption.concat(newAnswerOptions);
+        // Add answerOption element to questionnaire item
+        const newAnswerOptions = resourceList.map(createAnswerOption);
+        if (matchingResource.answerOption === undefined || matchingResource.answerOption.length === 0) {
+          matchingResource.answerOption = newAnswerOptions;
+        } else {
+          matchingResource.answerOption = matchingResource.answerOption.concat(newAnswerOptions);
+        }
+        questionnaireItems[questionnaireItemIndex] = matchingResource;
       }
-      questionnaireItems[questionnaireItemIndex] = matchingResource;
     }
   }
 
@@ -34,7 +37,7 @@ export default function questionnaireUpdater(
   return questionnaire;
 }
 
-function createAnswerOption(fhirObject: any) {
+function createAnswerOption(fhirObject: any): R4.IQuestionnaire_AnswerOption {
   const referenceLocation = `${fhirObject._json.resourceType}/${fhirObject.id.value}`;
   // Format answer option
   const referenceObject = {
