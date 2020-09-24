@@ -7,7 +7,7 @@ interface PatientProviderProps {
 }
 
 interface PatientContextInterface {
-  patientData: R4.IBundle| null;
+  patientData: R4.IBundle | null;
   setPatientData: Function;
 }
 
