@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { R4 } from '@ahryman40k/ts-fhir-types';
 import executeElm from '../../utils/cql-executor';
+import questionnaireUpdater from '../../utils/results-processing';
 import { ValueSetMap } from '../../types/valueset';
-//import resultsProcessing from '../../utils/results-processing';
 
 export interface Props {
   patientData: R4.IBundle;
@@ -13,16 +13,25 @@ export interface Props {
 
 const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props) => {
   useEffect(() => {
-    // TODO: Modify the answerOptions of the questionnaire to include the results from execution
-    const results = executeElm(patientData!, library, valueSetMap);
-    const lform = window.LForms.Util.convertFHIRQuestionnaireToLForms(questionnaire, 'R4');
+
+    const results = executeElm(patientData, library, valueSetMap);
+
+    try {
+      // Get Patient ID
+      const patientResource = patientData.entry!.find(
+        (bundleEntry: R4.IBundle_Entry) => bundleEntry.resource!.resourceType === "Patient") as R4.IBundle_Entry;
+      const patientID = patientResource.resource!.id as string;
+
+      const updatedQuestionnaire = questionnaireUpdater(results, questionnaire, patientID);
+      // Temporary console log to show questionnaire with answer options
+      console.log(updatedQuestionnaire);
+
+    const lform = window.LForms.Util.convertFHIRQuestionnaireToLForms(updatedQuestionnaire, 'R4');
     window.LForms.Util.addFormToPage(lform, 'formContainer');
+  } catch (e) {
+    console.error(`Error finding patient resource within bundle: ${e.message}`);
+  }
 
-    // TODO: Filter results by querying proper data from the returned FHIR resources.
-    //const filteredResults = resultsProcessing(results);
-
-    // Temporarily logging results to show the output of the CQL execution
-    console.log(results);
   }, [patientData, library, valueSetMap, questionnaire]);
 
   return <div id="formContainer"></div>;
