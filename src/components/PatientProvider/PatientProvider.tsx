@@ -13,23 +13,22 @@ interface PatientContextInterface {
 
 export const PatientContext = createContext<PatientContextInterface>({
   patientData: null,
-    setPatientData: (): void => {
+  setPatientData: (): void => {
     return;
   }
 });
 
 export const PatientProvider: FC<PatientProviderProps> = memo(({ children }) => {
   const [patientData, setPatientData] = useState<R4.IBundle | null>(null);
-  const dataSource = getDataSource();
 
-   useEffect(() => {
-     //load patient data
-      async function data() {
-        const dataSource = getDataSource();
-        const data = await dataSource?.getData();
-        setPatientData(data ?? null);
+  useEffect(() => {
+    //load patient data
+    async function data() {
+      const dataSource = getDataSource();
+      const data = await dataSource?.getData();
+      setPatientData(data ?? null);
     }
-    data()
+    data();
   }, []);
 
   return <PatientContext.Provider value={{ patientData, setPatientData }}>{children}</PatientContext.Provider>;
