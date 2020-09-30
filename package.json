@@ -61,5 +61,8 @@
   "devDependencies": {
     "nock": "^13.0.3",
     "prettier": "^2.0.5"
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "homepage": "https://github.com/mcode/abstraction-tool#readme",
+  "main": "index.js"
 }
