@@ -35,7 +35,6 @@
     "check": "npm run test && npm run lint && npm run prettier",
     "prepare": "tsc --noEmit false",
     "publish": "npm publish"
-
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -66,5 +65,5 @@
     "prettier": "^2.0.5"
   },
   "main": "./dist/index.js",
-  "typings": "./src/types/typings.d.ts"
+  "typings": "./src/types/index.d.ts"
 }

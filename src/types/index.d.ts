@@ -1,4 +1,5 @@
 import { R4 } from '@ahryman40k/ts-fhir-types';
+import { ValueSetMap } from './valueset';
 
 // ------ cql-exec.fhir.d.ts ----------------------
 
@@ -14,8 +15,6 @@ declare module 'cql-exec-fhir' {
 // ------ cql-execution.d.ts ----------------------
 
 declare module 'cql-execution' {
-  import { ValueSetMap } from './valueset';
-
   export class Library {
     constructor(elm: object, repo?: Repository);
   }
