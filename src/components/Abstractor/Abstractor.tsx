@@ -27,13 +27,10 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
       console.log(updatedQuestionnaire);
 
       const lform = window.LForms.Util.convertFHIRQuestionnaireToLForms(updatedQuestionnaire, 'R4');
-      console.log(lform);
       window.LForms.Util.addFormToPage(lform, 'formContainer');
 
       // Get Questionnaire Response
       const qr = window.LForms.Util.getFormFHIRData('QuestionnaireResponse', 'R4', lform);
-      console.log(qr);
-      //window.LForms.Util.mergeFHIRDataIntoLForms("QuestionnaireResponse", qr, lform, "R4");
       
     } catch (e) {
       console.error(`Error finding patient resource within bundle: ${e.message}`);
