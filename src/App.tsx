@@ -7,7 +7,6 @@ import { QuestionnaireLoader } from './loaders/QuestionnaireLoader';
 import { LibraryLoader } from './loaders/libraryLoader';
 import { ValueSetLoader } from './loaders/ValueSetLoader';
 import { ValueSetMap } from './types/valueset';
-//import resultsProcessing from '../../utils/results-processing';
 
 const defaultQuestionnaire: R4.IQuestionnaire = {
   resourceType: 'Questionnaire',
