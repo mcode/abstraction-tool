@@ -34,7 +34,6 @@
     "prettier:fix": "prettier --write \"**/*.{js,ts}\"",
     "check": "npm run test && npm run lint && npm run prettier",
     "prepare": "tsc --noEmit false",
-    "publish": "npm publish"
   },
   "eslintConfig": {
     "extends": "react-app"
