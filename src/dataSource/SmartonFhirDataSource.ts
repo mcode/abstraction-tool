@@ -4,7 +4,6 @@ import FHIR from 'fhirclient';
 import { getPatientRecord } from '../utils/fhirextractor';
 
 export class SmartonFhirDataSource extends DataSource {
-
   async getData() {
     const client = await FHIR.oauth2.init({
       clientId: 'Input client id you get when you register the app',
@@ -20,10 +19,10 @@ export class SmartonFhirDataSource extends DataSource {
     });
 
     //console.log(records);
-    
+
     const entries = records.map((record: R4.IDomainResource[]) => {
       return {
-            resource: record
+        resource: record
       };
     });
 
@@ -35,5 +34,4 @@ export class SmartonFhirDataSource extends DataSource {
       entry: entries
     } as R4.IBundle;
   }
-
 }
