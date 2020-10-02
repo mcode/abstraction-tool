@@ -1,9 +1,9 @@
-import { FileDataSource } from '../../dataSource/FileDataSource';
+import { SmartonFhirDataSource } from '../../dataSource/SmartonFhirDataSource';
 import bundle from '../fixtures/sample-patient-bundle.json';
 
-test('dataSource loads bundle correctly', () => {
-  const dataSource = new FileDataSource();
-  const data = dataSource.getData();
+test('dataSource loads bundle correctly', async() => {
+  const dataSource = new SmartonFhirDataSource();
+  const data = await dataSource.getData();
 
   expect(data).toEqual(bundle);
 });
