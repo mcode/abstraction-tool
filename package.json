@@ -1,7 +1,7 @@
 {
   "name": "abstraction-tool",
   "version": "0.0.1",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@ahryman40k/ts-fhir-types": "^4.0.32",
     "@testing-library/jest-dom": "^4.2.4",
@@ -32,7 +32,8 @@
     "eject": "react-scripts eject",
     "prettier": "prettier --check \"**/*.{js,ts}\"",
     "prettier:fix": "prettier --write \"**/*.{js,ts}\"",
-    "check": "npm run test && npm run lint && npm run prettier"
+    "check": "npm run test && npm run lint && npm run prettier",
+    "prepare": "rm -rf ./dist && tsc"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -61,5 +62,7 @@
   "devDependencies": {
     "nock": "^13.0.3",
     "prettier": "^2.0.5"
-  }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts"
 }
