@@ -1,6 +1,6 @@
 {
   "elmServiceUrl": "http://example.com/cql/translator/",
   "dataSource" : {
-    "type": "smart"
+    "type": "file"
   }
 }
