@@ -10,23 +10,17 @@ export class SmartonFhirDataSource extends DataSource {
       scope: 'launch/patient openid profile'
     });
 
-    //const patient = await client.patient.read();
-
     const record = await getPatientRecord(client);
     const values = ['id', 'meta', 'resourceType'];
     const records = record.filter((resource: any) => {
       return !Object.keys(resource).every(value => values.includes(value));
     });
 
-    //console.log(records);
-
     const entries = records.map((record: R4.IDomainResource[]) => {
       return {
         resource: record
       };
     });
-
-    //console.log(entries)
 
     return {
       resourceType: 'Bundle',
