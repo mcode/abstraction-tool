@@ -44,7 +44,7 @@ For the rendering of the updated questionnaire form to happen, you will need to 
 
 This library also exposes a variety of "loaders" which can be used to assemble the data necessary to provide the props to the `Abstractor`
 
-* ValuesetLoader: Load FHIR ValueSets into a map provided to the cql execution engine
+* ValuesetLoader: Load FHIR ValueSets into a map provided to the CQL Execution Framework
 * QuestionnaireLoader: Query for Questionnaire from FHIR server
 * LibraryLoader: Parse ELM from FHIR library
 
