@@ -56,7 +56,7 @@ const qLoader = new QuestionnaireLoader();
 const questionnaire = await qLoader.getFromUrl(/* a url */);
 
 // ValueSet loader
-const fhirLibary = /* a FHIR library resource */;
+const fhirLibary = /* a FHIR Library resource */;
 const contextBundle = /* a bundle of FHIR valuesets */;
 const vLoader = new ValueSetLoader(fhirLibrary, contextBundle);
 const vsMap = await vLoader.seedValueSets();
