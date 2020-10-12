@@ -51,7 +51,6 @@ const App = () => {
         console.error(`Error loading questionnaire data: ${e.message}`);
       }
     }
-
     if (patientData) {
       load();
     }

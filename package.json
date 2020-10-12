@@ -33,7 +33,7 @@
     "prettier": "prettier --check \"**/*.{js,ts}\"",
     "prettier:fix": "prettier --write \"**/*.{js,ts}\"",
     "check": "npm run test && npm run lint && npm run prettier",
-    "prepare": "rm -rf ./dist && tsc"
+    "prepare": "rm -rf ./dist && tsc --noEmit false"
   },
   "eslintConfig": {
     "extends": "react-app"

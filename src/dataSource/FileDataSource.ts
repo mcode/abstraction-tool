@@ -3,7 +3,7 @@ import { DataSource } from './DataSource';
 import bundle from '../__tests__/fixtures/sample-patient-bundle.json';
 
 export class FileDataSource extends DataSource {
-  getData() {
+  async getData() {
     return bundle as R4.IBundle;
   }
 }

@@ -13,13 +13,13 @@ export interface Props {
 
 const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props) => {
   useEffect(() => {
-
     const results = executeElm(patientData, library, valueSetMap);
 
     try {
       // Get Patient ID
       const patientResource = patientData.entry!.find(
-        (bundleEntry: R4.IBundle_Entry) => bundleEntry.resource!.resourceType === "Patient") as R4.IBundle_Entry;
+        (bundleEntry: R4.IBundle_Entry) => bundleEntry.resource!.resourceType === 'Patient'
+      ) as R4.IBundle_Entry;
       const patientID = patientResource.resource!.id as string;
 
       const updatedQuestionnaire = questionnaireUpdater(results, questionnaire, patientID);
@@ -34,11 +34,9 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
       const qr = window.LForms.Util.getFormFHIRData('QuestionnaireResponse', 'R4', lform);
       console.log(qr);
       //window.LForms.Util.mergeFHIRDataIntoLForms("QuestionnaireResponse", qr, lform, "R4");
-      
     } catch (e) {
       console.error(`Error finding patient resource within bundle: ${e.message}`);
     }
-
   }, [patientData, library, valueSetMap, questionnaire]);
 
   return <div id="formContainer"></div>;
