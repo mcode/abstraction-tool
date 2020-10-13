@@ -6822,9 +6822,9 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-"lforms@git+https://github.com/mcode/lforms.git":
+"lforms@git+https://github.com/mcode/lforms.git#valueReference_answerOptions_support":
   version "26.2.0"
-  resolved "git+https://github.com/mcode/lforms.git#3e03d677a4f74bb791011723494925f41cd07d47"
+  resolved "git+https://github.com/mcode/lforms.git#ead6a5c0e4d674c2c9adba73811734688c746b03"
   dependencies:
     "@lhncbc/ucum-lhc" "^4.1.3"
     angular "^1.8.0"
