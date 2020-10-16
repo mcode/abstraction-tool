@@ -1,44 +1,94 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# abstraction-tool (work in progress)
 
-## Available Scripts
+React components for executing CQL snippets embedded in a FHIR Questionnaire and displaying resuts.
 
-In the project directory, you can run:
+![Example Questionnaire rendering](./public/example-form.png)
 
-### `yarn start`
+## Components
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Abstractor
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+This library exposes the `Abstractor` component to execute and render the FHIR Questionnaire with embedded CQL. The component takes the following `props`:
 
-### `yarn test`
+* patientData: R4.IBundle;
+* library: any; (ELM JSON of the library used in the Questionnaire)
+* valueSetMap: ValueSetMap;
+* questionnaire: R4.IQuestionnaire;
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+See [the types directory](https://github.com/mcode/abstraction-tool/tree/master/src/types) for the custom types defined in the library.
 
-### `yarn build`
+``` JSX
+import Abstractor from 'abstraction-tool';
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+function MyComponent() {
+    return (
+        <Abstractor
+            valueSetMap={ /* a valueSet lookup */ }
+            questionnaire={ /* a FHIR Questionnaire */ }
+            library={ /* ELM JSON */ }
+            patientData={ /* a FHIR Bundle of patient data */ }
+        />
+    )
+}
+```
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+For the rendering of the updated questionnaire form to happen, you will need to include [LHC-Forms viewer widget](https://lhncbc.github.io/lforms/) by adding the following to `index.html`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+``` html
+<script crossorigin="anonymous" src="https://clinicaltables.nlm.nih.gov/lforms-versions/25.1.2/lforms.min.js"></script>
+<script crossorigin="anonymous" src="https://clinicaltables.nlm.nih.gov/lforms-versions/25.1.2/fhir/lformsFHIRAll.min.js"></script>   
+```
 
-### `yarn eject`
+### Loaders
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+This library also exposes a variety of "loaders" which can be used to assemble the data necessary to provide the props to the `Abstractor`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* ValuesetLoader: Load FHIR ValueSets into a map provided to the CQL Execution Framework
+* QuestionnaireLoader: Query for Questionnaire from FHIR server
+* LibraryLoader: Parse ELM from FHIR library
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+``` JavaScript
+import { QuestionnaireLoader, ValueSetLoader, LibraryLoader } from 'abstraction-tool';
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+// Questionnaire Loader
+const qLoader = new QuestionnaireLoader();
+const questionnaire = await qLoader.getFromUrl(/* a url */);
 
-## Learn More
+// ValueSet loader
+const fhirLibary = /* a FHIR Library resource */;
+const contextBundle = /* a FHIR Bundle of FHIR valuesets */;
+const vLoader = new ValueSetLoader(fhirLibrary, contextBundle);
+const vsMap = await vLoader.seedValueSets();
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+// Library Loader
+const fhirLibary2 = /* a FHIR Library resource with CQL or ELM content */;
+const lLoader = new LibraryLoader(fhirLibrary2)
+const elm = await lLoader.fetchELM();
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Local Development
+
+A simple demo of some cabability of the abstractor can be seen by running it as a standalone application.
+
+
+### Prerequisites
+
+* [Node.js](https://nodejs.org/en/)
+* [Yarn](https://yarnpkg.com/)
+
+``` bash
+$ yarn install
+$ yarn start
+```
+
+### Data Sources
+
+With local development of the application, patient data can be provided via a hardcoded FHIR Bundle JSON file, or SMART on FHIR.
+
+#### Hardcoded Bundle File
+
+In `src/config.json`, ensure that `dataSource.type` is `'file'`. In `src/dataSource/FileDataSource.ts`, update the `getData` function to return the contents of the desired file.
+
+#### SMART on FHIR
+
+In `src/config.json`, ensure that `dataSource.type` is `'smart'`. From a SMART app launcher, enter the URL of the application, and upon launch it should prompt for patient selection. Once the OAuth handshake happens properly, the app will load with the selected patient.
