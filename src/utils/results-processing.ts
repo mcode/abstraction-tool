@@ -9,13 +9,15 @@ export default function questionnaireUpdater(
 ): R4.IQuestionnaire {
   // Object Containing Questionnaire Items
   let questionnaireItems = questionnaire.item;
+  console.log(cqlResults);
+  //console.log(questionnaire);
 
   if (questionnaireItems !== undefined) {
     // Get Non-Empty Patient Results
-    const igResources = cqlResults.patientResults[patientId];
+    const igResources = cqlResults.patientResults[patientId]; // Assuming we are only evaluating one patient
     for (let key in igResources) {
       let resourceList = igResources[key];
-      if (resourceList.length > 0) {
+      if (resourceList.length > 0) { // resource list can now be anything
         // Find corresponding quesionnaire resource
         const matchingResource = questionnaireItems.find(element => element.linkId === key) as R4.IQuestionnaire_Item;
         const questionnaireItemIndex = questionnaireItems.indexOf(matchingResource);

@@ -16,7 +16,6 @@ export interface Props {
 const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props) => {
   useEffect(() => {
     const results = executeElm(patientData, library, valueSetMap);
-
     try {
       // Get Patient ID
       const patientResource = patientData.entry!.find(
@@ -29,8 +28,14 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
       console.log(updatedQuestionnaire);
 
       const lform = window.LForms.Util.convertFHIRQuestionnaireToLForms(updatedQuestionnaire, 'R4');
+
+      lform.templateOptions = 
+      {
+        showFormHeader:true
+      }
+    
       console.log(lform);
-      window.LForms.Util.addFormToPage(lform, 'formContainer');
+      window.LForms.Util.addFormToPage(lform, 'formContainer', {prepopulate:true});
 
       // Get Questionnaire Response
       const qr = window.LForms.Util.getFormFHIRData('QuestionnaireResponse', 'R4', lform);
