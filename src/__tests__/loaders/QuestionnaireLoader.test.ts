@@ -24,3 +24,15 @@ test('correctly query file for a questionnaire', async () => {
 
   expect(actualQuestionnaire).toEqual(sampleQuestionnaire);
 });
+
+test('invalid Questionnaire file should throw error', async () => {
+  expect(() => {
+    questionnaire.getFromFile('./src/__tests__/fixtures/sample-patient-bundle.json');
+  }).toThrowError();
+});
+
+test('invalid Questionnaire from URL should throw error', async () => {
+  nock(MOCK_URL).get('/').reply(200, { resourceType: 'not a questionnaire' });
+
+  expect(questionnaire.getFromUrl(MOCK_URL)).rejects.toThrowError();
+});

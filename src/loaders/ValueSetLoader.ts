@@ -19,7 +19,16 @@ export class ValueSetLoader {
     );
     const queries = valueSetUrls.map(async url => {
       const matchingEntry = this.contextBundle.entry?.find(e => e.fullUrl === url);
-      return matchingEntry ? (matchingEntry.resource as R4.IValueSet) : this.getFromUrl(url!);
+
+      if (matchingEntry) {
+        if (!this.isValidValueSet(matchingEntry.resource)) {
+          throw new Error(`${matchingEntry.fullUrl} is not a valid FHIR ValueSet`);
+        }
+
+        return matchingEntry.resource as R4.IValueSet;
+      } else {
+        return this.getFromUrl(url!);
+      }
     });
 
     const resources = await Promise.all(queries);
@@ -44,6 +53,21 @@ export class ValueSetLoader {
 
   async getFromUrl(url: string): Promise<R4.IValueSet> {
     const response = await axios.get(url);
+
+    if (!this.isValidValueSet(response.data)) {
+      throw new Error(`Data from ${url} is not a valid FHIR ValueSet`);
+    }
+
     return response.data;
+  }
+
+  isValidValueSet(obj: any): boolean {
+    // mCODE ValueSets are failing validation because of description markdown
+    // Ignoring this for now
+    if (obj.description) delete obj.description;
+
+    const validValueSet = R4.RTTI_ValueSet.decode(obj);
+    // Right = valid object
+    return validValueSet.isRight();
   }
 }

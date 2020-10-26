@@ -59,3 +59,11 @@ test('seeds ValueSets properly using bundle', async () => {
   const valueSetMap = await valueSetLoader.seedValueSets();
   expect(valueSetMap).toEqual(EXPECTED_MAP);
 });
+
+test('invalid ValueSet should throw error', async () => {
+  nock(MOCK_URL).get('/example-valueset-3').reply(200, {
+    resourceType: 'notavalueset'
+  });
+
+  expect(valueSetLoader.seedValueSets()).rejects.toThrowError();
+});
