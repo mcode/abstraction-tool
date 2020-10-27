@@ -33,7 +33,13 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
       window.LForms.Util.addFormToPage(lform, 'formContainer');
 
       // Get Questionnaire Response
-      const qr = window.LForms.Util.getFormFHIRData('QuestionnaireResponse', 'R4', lform);
+      const userData = window.LForms.Util.getUserData();
+      console.log(userData);
+
+      const qr = window.LForms.Util.getFormFHIRData('QuestionnaireResponse', 'R4', userData);
+      qr.questionnaire = lform.id;
+
+
       console.log(qr);
       //window.LForms.Util.mergeFHIRDataIntoLForms("QuestionnaireResponse", qr, lform, "R4");
     } catch (e) {
@@ -41,7 +47,18 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
     }
   }, [patientData, library, valueSetMap, questionnaire]);
 
-  return <div id="formContainer"></div>;
+  const generateQR = () => {
+    //Generate questionnaireResponse
+    console.log("Pressed button")
+  }
+  //<button onClick ={() => generateQR()}>New Button</button>
+  
+  return <div
+    id="formContainer">
+      <button onClick ={() => generateQR()}>New Button</button>
+  </div>;
+
+
 };
 
 export default Abstractor;
