@@ -34,8 +34,29 @@ export default function questionnaireUpdater(
     }
   }
 
+
+
+  // Check data type of incoming cql results
+  switch(cqlResults) {
+    // ValueCoding
+    case (R4.RTTI_Coding.decode(cqlResults).isRight() || R4.RTTI_code.decode(cqlResults).isRight() ):
+      createValueCoding(cqlResults);
+      break;
+  }
+
+
+
+
+
+
+
+
   // Update questionnaire
   return questionnaire;
+}
+
+function createValueCoding(results: any){
+  console.log(results);
 }
 
 function createAnswerOption(fhirObject: any): R4.IQuestionnaire_AnswerOption {
