@@ -4,6 +4,9 @@ import executeElm from '../../utils/cql-executor';
 import questionnaireUpdater from '../../utils/results-processing';
 import { ValueSetMap } from '../../types/valueset';
 
+window.LForms = require('lforms');
+require('lforms/app/scripts/fhir/R4/fhirRequire');
+
 export interface Props {
   patientData: R4.IBundle;
   library: any;
