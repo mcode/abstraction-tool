@@ -41,9 +41,14 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
     console.log(qr);
 
     // Signify to user that questionnaireResponse has been generated
+    let answerCount: number = 0;
+    if (qr.item){
+      answerCount = qr.item.length;
+    }
+    
     const response: HTMLElement | null = document.getElementById("responseGenerated");
     if (response){
-      response!.innerHTML = "Questionnaire Response has been generated and logged to the console!";
+      response!.innerHTML = `Questionnaire Response has been generated with ${answerCount} answer(s) and has been logged to the console!`;
     }
   }
   
