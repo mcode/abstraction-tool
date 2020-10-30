@@ -49,16 +49,23 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
 
   const generateQR = () => {
     //Generate questionnaireResponse
-    console.log("Pressed button")
+
+    
+
+
+    // Signify to user that questionnaireResponse has been generated
+    const response: HTMLElement | null = document.getElementById("responseGenerated");
+    if (response){
+      response!.innerHTML = "Questionnaire Response has been generated!";
+    }
   }
-  //<button onClick ={() => generateQR()}>New Button</button>
   
-  return <div
+  return (<div> <div
     id="formContainer">
-      <button onClick ={() => generateQR()}>New Button</button>
-  </div>;
-
-
+  </div>
+  <button onClick ={() => generateQR()}>Generate Questionnaire Response</button> 
+  <p id="responseGenerated"></p>
+</div> );
 };
 
 export default Abstractor;
