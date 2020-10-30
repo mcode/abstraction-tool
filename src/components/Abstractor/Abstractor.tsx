@@ -32,16 +32,6 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
       console.log(lform);
       window.LForms.Util.addFormToPage(lform, 'formContainer');
 
-      // Get Questionnaire Response
-      const userData = window.LForms.Util.getUserData();
-      console.log(userData);
-
-      const qr = window.LForms.Util.getFormFHIRData('QuestionnaireResponse', 'R4', userData);
-      qr.questionnaire = lform.id;
-
-
-      console.log(qr);
-      //window.LForms.Util.mergeFHIRDataIntoLForms("QuestionnaireResponse", qr, lform, "R4");
     } catch (e) {
       console.error(`Error finding patient resource within bundle: ${e.message}`);
     }
@@ -49,23 +39,23 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
 
   const generateQR = () => {
     //Generate questionnaireResponse
-
-    
-
+    const qr = window.LForms.Util.getFormFHIRData('QuestionnaireResponse', 'R4');
+    console.log(qr);
 
     // Signify to user that questionnaireResponse has been generated
     const response: HTMLElement | null = document.getElementById("responseGenerated");
     if (response){
-      response!.innerHTML = "Questionnaire Response has been generated!";
+      response!.innerHTML = "Questionnaire Response has been generated and logged to the console!";
     }
   }
   
-  return (<div> <div
-    id="formContainer">
-  </div>
-  <button onClick ={() => generateQR()}>Generate Questionnaire Response</button> 
-  <p id="responseGenerated"></p>
-</div> );
+  return (
+    <div>
+      <div id="formContainer"> </div>
+      <button onClick ={() => generateQR()}>Generate Questionnaire Response</button> 
+      <p id="responseGenerated"></p>
+    </div>
+  );
 };
 
 export default Abstractor;
