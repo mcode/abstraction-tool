@@ -9,7 +9,8 @@ export default function questionnaireUpdater(
 ): R4.IQuestionnaire {
   // Object Containing Questionnaire Items
   let questionnaireItems = questionnaire.item;
-
+  //console.log(questionnaire);
+  //console.log(cqlResults);
   if (questionnaireItems !== undefined) {
     // Get Non-Empty Patient Results
     const igResources = cqlResults.patientResults[patientId];
@@ -17,7 +18,9 @@ export default function questionnaireUpdater(
       let resourceList = igResources[key];
       if (resourceList.length > 0) {
         // Find corresponding quesionnaire resource
-        const matchingResource = questionnaireItems.find(element => element.linkId === key) as R4.IQuestionnaire_Item;
+        console.log(questionnaireItems);
+
+        const matchingResource = questionnaireItems.find(element => getExpressionName(element) === key) as R4.IQuestionnaire_Item;
         const questionnaireItemIndex = questionnaireItems.indexOf(matchingResource);
 
         // Add answerOption element to questionnaire item
@@ -46,4 +49,12 @@ function createAnswerOption(fhirObject: any): R4.IQuestionnaire_AnswerOption {
     }
   };
   return referenceObject;
+}
+
+function getExpressionName(item: any): string {
+  const expressionName = item.extension[0].valueExpression.expression;
+  const strArray = expressionName.split(".");
+  const last = strArray[strArray.length - 1];
+  console.log(last);
+  return last;
 }
