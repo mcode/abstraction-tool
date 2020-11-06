@@ -12,7 +12,7 @@ export interface Props {
 }
 
 const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props) => {
-  const [responseGenerated, setResponseGenerated] = useState<object>(
+  const [responseGenerated, setResponseGenerated] = useState(
      {  
       message: false,
       count: 0
@@ -68,7 +68,7 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
     <div>
       <div id="formContainer"> </div>
       <button onClick ={() => generateQR()}>Generate Questionnaire Response</button> 
-      { responseGenerated.message && <p>Questionnaire Response has been generated and has been logged to the console!</p>}
+      { responseGenerated.count && <p>Questionnaire Response has generated and has been logged to the console!</p>}
     </div>
   );
 };
