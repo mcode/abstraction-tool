@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { R4 } from '@ahryman40k/ts-fhir-types';
 import executeElm from '../../utils/cql-executor';
 import questionnaireUpdater from '../../utils/results-processing';
@@ -12,6 +12,8 @@ export interface Props {
 }
 
 const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props) => {
+  const [responseGenerated, setResponseGenerated] = useState<boolean>(false);
+  
   useEffect(() => {
     const results = executeElm(patientData, library, valueSetMap);
 
@@ -36,6 +38,7 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
   }, [patientData, library, valueSetMap, questionnaire]);
 
   const generateQR = () => {
+
     //Generate questionnaireResponse
     const qr = window.LForms.Util.getFormFHIRData('QuestionnaireResponse', 'R4');
     console.log(qr);
@@ -48,10 +51,14 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
     
     const response: HTMLElement | null = document.getElementById("responseGenerated");
     if (response){
-      response!.innerHTML = `Questionnaire Response has been generated with ${answerCount} answer(s) and has been logged to the console!`;
+      //response!.innerHTML = `Questionnaire Response has been generated with ${answerCount} answer(s) and has been logged to the console!`;
+      setResponseGenerated(true);
     }
-  }
+    {responseGenerated && <p>Questionnaire Response has been generated and has been logged to the console!</p>}
+  } 
   
+  
+
   return (
     <div>
       <div id="formContainer"> </div>
