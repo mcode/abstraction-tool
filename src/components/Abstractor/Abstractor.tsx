@@ -12,8 +12,13 @@ export interface Props {
 }
 
 const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props) => {
-  const [responseGenerated, setResponseGenerated] = useState<boolean>(false);
-  
+  const [responseGenerated, setResponseGenerated] = useState<object>(
+     {  
+      message: false,
+      count: 0
+      }
+  );
+
   useEffect(() => {
     const results = executeElm(patientData, library, valueSetMap);
 
@@ -38,32 +43,32 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
   }, [patientData, library, valueSetMap, questionnaire]);
 
   const generateQR = () => {
-
     //Generate questionnaireResponse
     const qr = window.LForms.Util.getFormFHIRData('QuestionnaireResponse', 'R4');
     console.log(qr);
 
     // Signify to user that questionnaireResponse has been generated
-    let answerCount: number = 0;
+    let answerCount = 0;
     if (qr.item){
       answerCount = qr.item.length;
     }
     
-    const response: HTMLElement | null = document.getElementById("responseGenerated");
-    if (response){
+    //const response: HTMLElement | null = document.getElementById("responseGenerated");
+    //if (response){
       //response!.innerHTML = `Questionnaire Response has been generated with ${answerCount} answer(s) and has been logged to the console!`;
-      setResponseGenerated(true);
-    }
-    {responseGenerated && <p>Questionnaire Response has been generated and has been logged to the console!</p>}
-  } 
+      
+      // See if I can get this working with the object
+      setResponseGenerated(responseGenerated => ({...responseGenerated,  message: true, count: answerCount}) );
+      //setResponseGenerated(false)
+    
+    //}
+  }
   
-  
-
   return (
     <div>
       <div id="formContainer"> </div>
       <button onClick ={() => generateQR()}>Generate Questionnaire Response</button> 
-      <p id="responseGenerated"></p>
+      { responseGenerated.message && <p>Questionnaire Response has been generated and has been logged to the console!</p>}
     </div>
   );
 };
