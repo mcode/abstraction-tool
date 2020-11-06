@@ -12,11 +12,11 @@ export interface Props {
 }
 
 const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props) => {
-  const [responseGenerated, setResponseGenerated] = useState(
-     {  
+  const [responseGenerated, setResponseGenerated] = useState ( 
+    {
       message: false,
       count: 0
-      }
+    }
   );
 
   useEffect(() => {
@@ -43,32 +43,22 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
   }, [patientData, library, valueSetMap, questionnaire]);
 
   const generateQR = () => {
-    //Generate questionnaireResponse
+    // Generate QuestionnaireResponse
     const qr = window.LForms.Util.getFormFHIRData('QuestionnaireResponse', 'R4');
     console.log(qr);
-
-    // Signify to user that questionnaireResponse has been generated
+    // Signify to user that QuestionnaireResponse has been generated
     let answerCount = 0;
-    if (qr.item){
+    if (qr.item) {
       answerCount = qr.item.length;
     }
-    
-    //const response: HTMLElement | null = document.getElementById("responseGenerated");
-    //if (response){
-      //response!.innerHTML = `Questionnaire Response has been generated with ${answerCount} answer(s) and has been logged to the console!`;
-      
-      // See if I can get this working with the object
-      setResponseGenerated(responseGenerated => ({...responseGenerated,  message: true, count: answerCount}) );
-      //setResponseGenerated(false)
-    
-    //}
+    setResponseGenerated(responseGenerated => ({...responseGenerated,  message: true, count: answerCount}) );
   }
   
   return (
     <div>
       <div id="formContainer"> </div>
       <button onClick ={() => generateQR()}>Generate Questionnaire Response</button> 
-      { responseGenerated.count && <p>Questionnaire Response has generated and has been logged to the console!</p>}
+      {responseGenerated.message && <p>Questionnaire Response has been generated with {responseGenerated.count} answer(s) and has been logged to the console!</p>}
     </div>
   );
 };
