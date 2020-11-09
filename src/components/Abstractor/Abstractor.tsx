@@ -16,7 +16,7 @@ interface ResponseObject {
 }
 
 const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props) => {
-  const [responseGenerated, setResponseGenerated] = useState<ResponseObject> ( 
+  const [responseGenerated, setResponseGenerated] = useState<ResponseObject>( 
     {
       isGenerated: false,
       count: 0
@@ -55,7 +55,7 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
     if (qr.item) {
       answerCount = qr.item.length;
     }
-    setResponseGenerated(responseGenerated => ({...responseGenerated,  message: true, count: answerCount}) );
+    setResponseGenerated(responseGenerated => ({...responseGenerated, isGenerated: true, count: answerCount}) );
   }
   
   return (
