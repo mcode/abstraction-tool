@@ -11,8 +11,8 @@ export interface Props {
   questionnaire: R4.IQuestionnaire;
 }
 interface ResponseObject {
-  isGenerated: boolean,
-  count: number
+  isGenerated: boolean;
+  count: number;
 }
 
 const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props) => {
