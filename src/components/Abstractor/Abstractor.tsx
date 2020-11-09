@@ -55,7 +55,7 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
     if (qr.item) {
       answerCount = qr.item.length;
     }
-    setResponseGenerated(responseGenerated => ({...responseGenerated, isGenerated: true, count: answerCount}) );
+    setResponseGenerated({ isGenerated:true, count: answerCount});
   }
   
   return (
