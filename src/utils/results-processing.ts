@@ -18,7 +18,7 @@ export default function questionnaireUpdater(
       let resourceList = igResources[key];
       if (resourceList.length > 0) {
         // Find corresponding quesionnaire resource
-        console.log(questionnaireItems);
+        //console.log(questionnaireItems);
 
         const matchingResource = questionnaireItems.find(element => getExpressionName(element) === key) as R4.IQuestionnaire_Item;
         const questionnaireItemIndex = questionnaireItems.indexOf(matchingResource);
@@ -52,9 +52,23 @@ function createAnswerOption(fhirObject: any): R4.IQuestionnaire_AnswerOption {
 }
 
 function getExpressionName(item: any): string {
-  const expressionName = item.extension[0].valueExpression.expression;
-  const strArray = expressionName.split(".");
-  const last = strArray[strArray.length - 1];
-  console.log(last);
-  return last;
+
+  interface CandidateExpression {
+    url: string;
+    valueExpression: {
+      expression: string;
+      language: string;
+    };
+  };
+  //{ url: string; }
+
+  //const expressionName = item.extension[0].valueExpression.expression;
+  const candidateExpression = item.extension.find( (ext: CandidateExpression) => ext.url === 'http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression')
+  const valueExpressionArray = candidateExpression.valueExpression.expression.split(".");
+  const expressionName = valueExpressionArray[valueExpressionArray.length - 1];
+  console.log(expressionName);
+  //const strArray = expressionName.split(".");
+  //const last = strArray[strArray.length - 1];
+  //console.log(last);
+  return expressionName;
 }
