@@ -1,5 +1,13 @@
 import { R4 } from '@ahryman40k/ts-fhir-types';
 
+interface CandidateExpression {
+  url: string;
+  valueExpression: {
+    expression: string;
+    language: string;
+  };
+};
+
 // Filter results by querying proper data from the returned FHIR resources.
 // Modify the answerOptions of the questionnaire to include the results from execution
 export default function questionnaireUpdater(
@@ -20,7 +28,8 @@ export default function questionnaireUpdater(
         // Find corresponding quesionnaire resource
         //console.log(questionnaireItems);
 
-        const matchingResource = questionnaireItems.find(element => getExpressionName(element) === key) as R4.IQuestionnaire_Item;
+        const matchingResource = questionnaireItems.find( (element:R4.IQuestionnaire_Item) => getExpressionName(element) === key) as R4.IQuestionnaire_Item;
+        console.log(matchingResource);
         const questionnaireItemIndex = questionnaireItems.indexOf(matchingResource);
 
         // Add answerOption element to questionnaire item
@@ -51,24 +60,16 @@ function createAnswerOption(fhirObject: any): R4.IQuestionnaire_AnswerOption {
   return referenceObject;
 }
 
-function getExpressionName(item: any): string {
+function getExpressionName(item: R4.IQuestionnaire_Item): string | undefined {
 
-  interface CandidateExpression {
-    url: string;
-    valueExpression: {
-      expression: string;
-      language: string;
-    };
-  };
-  //{ url: string; }
-
-  //const expressionName = item.extension[0].valueExpression.expression;
-  const candidateExpression = item.extension.find( (ext: CandidateExpression) => ext.url === 'http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression')
-  const valueExpressionArray = candidateExpression.valueExpression.expression.split(".");
-  const expressionName = valueExpressionArray[valueExpressionArray.length - 1];
-  console.log(expressionName);
-  //const strArray = expressionName.split(".");
-  //const last = strArray[strArray.length - 1];
-  //console.log(last);
-  return expressionName;
+  if (item.extension){
+    const candidateExpression = item.extension.find( (ext: R4.IExtension) => ext.url === 'http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression') as R4.IExtension;
+    if ( (candidateExpression.valueExpression as R4.IExpression) && (candidateExpression.valueExpression?.expression as) ){
+      //if (candidateExpression.valueExpression.expression)
+      const valueExpressionArray = candidateExpression.valueExpression.expression.split(".");
+      const expressionName = valueExpressionArray[valueExpressionArray.length - 1];
+      console.log(expressionName);
+      return expressionName;
+    }
+  }
 }
