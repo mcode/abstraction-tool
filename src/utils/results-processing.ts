@@ -9,6 +9,7 @@ export default function questionnaireUpdater(
 ): R4.IQuestionnaire {
   // Object Containing Questionnaire Items
   let questionnaireItems = questionnaire.item;
+  
   if (questionnaireItems !== undefined) {
     // Get Non-Empty Patient Results
     const igResources = cqlResults.patientResults[patientId];
