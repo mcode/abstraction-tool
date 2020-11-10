@@ -1,13 +1,5 @@
 import { R4 } from '@ahryman40k/ts-fhir-types';
 
-interface CandidateExpression {
-  url: string;
-  valueExpression: {
-    expression: string;
-    language: string;
-  };
-};
-
 // Filter results by querying proper data from the returned FHIR resources.
 // Modify the answerOptions of the questionnaire to include the results from execution
 export default function questionnaireUpdater(
@@ -17,8 +9,6 @@ export default function questionnaireUpdater(
 ): R4.IQuestionnaire {
   // Object Containing Questionnaire Items
   let questionnaireItems = questionnaire.item;
-  //console.log(questionnaire);
-  //console.log(cqlResults);
   if (questionnaireItems !== undefined) {
     // Get Non-Empty Patient Results
     const igResources = cqlResults.patientResults[patientId];
@@ -26,10 +16,7 @@ export default function questionnaireUpdater(
       let resourceList = igResources[key];
       if (resourceList.length > 0) {
         // Find corresponding quesionnaire resource
-        //console.log(questionnaireItems);
-
-        const matchingResource = questionnaireItems.find( (element:R4.IQuestionnaire_Item) => getExpressionName(element) === key) as R4.IQuestionnaire_Item;
-        console.log(matchingResource);
+        const matchingResource = questionnaireItems.find(element => getExpressionName(element) === key) as R4.IQuestionnaire_Item;
         const questionnaireItemIndex = questionnaireItems.indexOf(matchingResource);
 
         // Add answerOption element to questionnaire item
@@ -61,15 +48,13 @@ function createAnswerOption(fhirObject: any): R4.IQuestionnaire_AnswerOption {
 }
 
 function getExpressionName(item: R4.IQuestionnaire_Item): string | undefined {
-
-  if (item.extension){
+  if (item.extension) {
     const candidateExpression = item.extension.find( (ext: R4.IExtension) => ext.url === 'http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression') as R4.IExtension;
-    if ( (candidateExpression.valueExpression as R4.IExpression) && (candidateExpression.valueExpression?.expression as) ){
-      //if (candidateExpression.valueExpression.expression)
-      const valueExpressionArray = candidateExpression.valueExpression.expression.split(".");
-      const expressionName = valueExpressionArray[valueExpressionArray.length - 1];
-      console.log(expressionName);
+    if (candidateExpression.valueExpression?.expression) {
+      const expressionArray = candidateExpression.valueExpression.expression.split(".");
+      const expressionName = expressionArray[expressionArray.length - 1];
       return expressionName;
     }
   }
+  return undefined;
 }
