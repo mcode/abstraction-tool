@@ -49,7 +49,7 @@ function createAnswerOption(fhirObject: any): R4.IQuestionnaire_AnswerOption {
 
 function getExpressionName(item: R4.IQuestionnaire_Item): string | undefined {
   if (item.extension) {
-    const candidateExpression = item.extension.find( (ext: R4.IExtension) => ext.url === 'http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression') as R4.IExtension;
+    const candidateExpression = item.extension.find(ext => ext.url === 'http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression') as R4.IExtension;
     if (candidateExpression.valueExpression?.expression) {
       const expressionArray = candidateExpression.valueExpression.expression.split(".");
       const expressionName = expressionArray[expressionArray.length - 1];
