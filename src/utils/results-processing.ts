@@ -9,7 +9,7 @@ export default function questionnaireUpdater(
 ): R4.IQuestionnaire {
   // Object Containing Questionnaire Items
   let questionnaireItems = questionnaire.item;
-  
+
   if (questionnaireItems !== undefined) {
     // Get Non-Empty Patient Results
     const igResources = cqlResults.patientResults[patientId];
@@ -17,7 +17,9 @@ export default function questionnaireUpdater(
       let resourceList = igResources[key];
       if (resourceList.length > 0) {
         // Find corresponding quesionnaire resource
-        const matchingResource = questionnaireItems.find(element => getExpressionName(element) === key) as R4.IQuestionnaire_Item;
+        const matchingResource = questionnaireItems.find(
+          element => getExpressionName(element) === key
+        ) as R4.IQuestionnaire_Item;
         const questionnaireItemIndex = questionnaireItems.indexOf(matchingResource);
 
         // Add answerOption element to questionnaire item
@@ -50,9 +52,11 @@ function createAnswerOption(fhirObject: any): R4.IQuestionnaire_AnswerOption {
 
 function getExpressionName(item: R4.IQuestionnaire_Item): string | undefined {
   if (item.extension) {
-    const candidateExpression = item.extension.find(ext => ext.url === 'http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression') as R4.IExtension;
+    const candidateExpression = item.extension.find(
+      ext => ext.url === 'http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression'
+    ) as R4.IExtension;
     if (candidateExpression.valueExpression?.expression) {
-      const expressionArray = candidateExpression.valueExpression.expression.split(".");
+      const expressionArray = candidateExpression.valueExpression.expression.split('.');
       const expressionName = expressionArray[expressionArray.length - 1];
       return expressionName;
     }
