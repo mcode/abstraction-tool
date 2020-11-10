@@ -15,7 +15,7 @@ export default function questionnaireUpdater(
     const igResources = cqlResults.patientResults[patientId];
     for (let key in igResources) {
       let resourceList = igResources[key];
-      if (resourceList.length > 0) {
+      if ((Array.isArray(resourceList) && resourceList.length > 0) || (!Array.isArray(resourceList) && resourceList)) {
         // Find corresponding quesionnaire resource
         const matchingResource = questionnaireItems.find(
           element => getExpressionName(element) === key
@@ -23,7 +23,12 @@ export default function questionnaireUpdater(
         const questionnaireItemIndex = questionnaireItems.indexOf(matchingResource);
 
         // Add answerOption element to questionnaire item
-        const newAnswerOptions = resourceList.map(createAnswerOption);
+        let newAnswerOptions: R4.IQuestionnaire_AnswerOption[];
+        if (Array.isArray(resourceList)) {
+          newAnswerOptions = resourceList.map((r: any) => createAnswerOption(r, key));
+        } else {
+          newAnswerOptions = [createAnswerOption(resourceList, key)];
+        }
         if (matchingResource.answerOption === undefined || matchingResource.answerOption.length === 0) {
           matchingResource.answerOption = newAnswerOptions;
         } else {
@@ -38,13 +43,52 @@ export default function questionnaireUpdater(
   return questionnaire;
 }
 
-function createAnswerOption(fhirObject: any): R4.IQuestionnaire_AnswerOption {
-  const referenceLocation = `${fhirObject._json.resourceType}/${fhirObject.id.value}`;
+export function createAnswerOption(cqlResult: any, itemName?: string): R4.IQuestionnaire_AnswerOption {
+  if (R4.RTTI_Coding.decode(cqlResult._json).isRight()) {
+    return createValueCodingAnswerOption(cqlResult._json as R4.ICodeableConcept);
+  } else if (typeof cqlResult === 'string') {
+    return createPrimitiveAnswerOption('valueString', cqlResult);
+  } else if (cqlResult.isDate) {
+    return createPrimitiveAnswerOption('valueDate', (cqlResult as Date).toString());
+  } else if (cqlResult.isDateTime) {
+    return createPrimitiveAnswerOption('valueTime', (cqlResult as Date).toString());
+  } else if (R4.RTTI_time.decode(cqlResult._json).isRight()) {
+    return createPrimitiveAnswerOption('valueTime', cqlResult as Date);
+  } else if (R4.RTTI_integer.decode(cqlResult).isRight()) {
+    return createPrimitiveAnswerOption('valueInteger', cqlResult as number);
+  } else if (R4.RTTI_ResourceList.decode(cqlResult._json).isRight()) {
+    return createValueReferenceAnswerOption(cqlResult, cqlResult._json as R4.IResourceList);
+  }
+  throw new Error(`Unable to map cql result for ${itemName} to Questionnaire answerOption`);
+}
+
+function createPrimitiveAnswerOption(
+  key: 'valueDate' | 'valueTime' | 'valueInteger' | 'valueString',
+  cqlResult: Date | number | string
+): R4.IQuestionnaire_AnswerOption {
+  return {
+    [key]: cqlResult
+  };
+}
+
+function createValueCodingAnswerOption(cqlResult: R4.ICodeableConcept): R4.IQuestionnaire_AnswerOption {
+  return {
+    valueCoding: {
+      ...(cqlResult.coding && cqlResult.coding[0])
+    }
+  };
+}
+
+function createValueReferenceAnswerOption(
+  cqlResult: any,
+  fhirObject: R4.IResourceList
+): R4.IQuestionnaire_AnswerOption {
+  const referenceLocation = `${fhirObject.resourceType}/${cqlResult.id.value}`;
   // Format answer option
   const referenceObject = {
     valueReference: {
       reference: referenceLocation,
-      display: fhirObject.code.coding[0].display.value
+      display: cqlResult.code.coding[0].display.value
     }
   };
   return referenceObject;
