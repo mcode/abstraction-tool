@@ -45,7 +45,10 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
   const generateQR = () => {
     // Generate QuestionnaireResponse
     const qr = window.LForms.Util.getFormFHIRData('QuestionnaireResponse', 'R4');
+    const lformer = window.LForms.Util.mergeFHIRDataIntoLForms('QuestionnaireResponse', patientData, qr, 'R4');
+
     console.log(qr);
+    console.log("this is lformer " + lformer)
     // Signify to user that QuestionnaireResponse has been generated
     let answerCount = 0;
     if (qr.item) {
