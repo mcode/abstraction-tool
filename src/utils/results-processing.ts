@@ -44,7 +44,7 @@ export default function questionnaireUpdater(
 }
 
 export function createAnswerOption(cqlResult: any, itemName?: string): R4.IQuestionnaire_AnswerOption {
-  if (R4.RTTI_Coding.decode(cqlResult._json).isRight()) {
+  if (R4.RTTI_CodeableConcept.decode(cqlResult._json).isRight()) {
     return createValueCodingAnswerOption(cqlResult._json as R4.ICodeableConcept);
   } else if (typeof cqlResult === 'string') {
     return createPrimitiveAnswerOption('valueString', cqlResult);
