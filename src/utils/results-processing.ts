@@ -44,8 +44,13 @@ export default function questionnaireUpdater(
 }
 
 export function createAnswerOption(cqlResult: any, itemName?: string): R4.IQuestionnaire_AnswerOption {
-  if (R4.RTTI_CodeableConcept.decode(cqlResult._json).isRight()) {
-    return createValueCodingAnswerOption(cqlResult._json as R4.ICodeableConcept);
+  if (R4.RTTI_ResourceList.decode(cqlResult._json).isRight()) {
+    return createValueReferenceAnswerOption(cqlResult, cqlResult._json as R4.IResourceList);
+  } else if (R4.RTTI_CodeableConcept.decode(cqlResult._json).isRight()) {
+    return createValueCodingAnswerOptionCodeableConcept(cqlResult._json as R4.ICodeableConcept);
+  } else if (Array.isArray(cqlResult) && R4.RTTI_Coding.decode(cqlResult[0]._json).isRight()) {
+    // Codings will come in as arrays
+    return createValueCodingAnswerOptionCoding(cqlResult[0]._json as R4.ICoding);
   } else if (typeof cqlResult === 'string') {
     return createPrimitiveAnswerOption('valueString', cqlResult);
   } else if (cqlResult.isDate) {
@@ -56,10 +61,9 @@ export function createAnswerOption(cqlResult: any, itemName?: string): R4.IQuest
     return createPrimitiveAnswerOption('valueTime', cqlResult as Date);
   } else if (R4.RTTI_integer.decode(cqlResult).isRight()) {
     return createPrimitiveAnswerOption('valueInteger', cqlResult as number);
-  } else if (R4.RTTI_ResourceList.decode(cqlResult._json).isRight()) {
-    return createValueReferenceAnswerOption(cqlResult, cqlResult._json as R4.IResourceList);
+  } else {
+    throw new Error(`Unable to map cql result for ${itemName} to Questionnaire answerOption`);
   }
-  throw new Error(`Unable to map cql result for ${itemName} to Questionnaire answerOption`);
 }
 
 function createPrimitiveAnswerOption(
@@ -71,10 +75,18 @@ function createPrimitiveAnswerOption(
   };
 }
 
-function createValueCodingAnswerOption(cqlResult: R4.ICodeableConcept): R4.IQuestionnaire_AnswerOption {
+function createValueCodingAnswerOptionCodeableConcept(cqlResult: R4.ICodeableConcept): R4.IQuestionnaire_AnswerOption {
   return {
     valueCoding: {
       ...(cqlResult.coding && cqlResult.coding[0])
+    }
+  };
+}
+
+function createValueCodingAnswerOptionCoding(cqlResult: R4.ICoding): R4.IQuestionnaire_AnswerOption {
+  return {
+    valueCoding: {
+      ...cqlResult
     }
   };
 }
