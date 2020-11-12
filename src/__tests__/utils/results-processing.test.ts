@@ -10,7 +10,7 @@ const TIME_CQL_RESULT: Date & { isDateTime?: boolean } = new Date('2020-01-01T00
 DATE_CQL_RESULT.isDate = true;
 TIME_CQL_RESULT.isDateTime = true;
 
-const CODING_CQL_RESULT = {
+const CODEABLE_CONCEPT_CQL_RESULT = {
   coding: [
     {
       code: 'example'
@@ -28,6 +28,15 @@ const CODING_CQL_RESULT = {
     text: 'example'
   }
 };
+
+const CODING_CQL_RESULT = [
+  {
+    code: { value: 'example' },
+    _json: {
+      code: 'example'
+    }
+  }
+];
 
 // any fhir resource
 const REFERENCE_CQL_RESULT = {
@@ -61,7 +70,7 @@ const TIME_ANSWER_OPTION: R4.IQuestionnaire_AnswerOption = {
   valueTime: TIME_CQL_RESULT.toString()
 };
 
-const CODING_ANSWER_OPTION: R4.IQuestionnaire_AnswerOption = {
+const CODE_ANSWER_OPTION: R4.IQuestionnaire_AnswerOption = {
   valueCoding: {
     code: 'example'
   }
@@ -92,7 +101,8 @@ describe('Results Processing Tests', () => {
   });
 
   it('should create valid valueCoding answer option', () => {
-    expect(createAnswerOption(CODING_CQL_RESULT)).toEqual(CODING_ANSWER_OPTION);
+    expect(createAnswerOption(CODING_CQL_RESULT)).toEqual(CODE_ANSWER_OPTION);
+    expect(createAnswerOption(CODEABLE_CONCEPT_CQL_RESULT)).toEqual(CODE_ANSWER_OPTION);
   });
 
   it('should create valid valueReference answer option', () => {
