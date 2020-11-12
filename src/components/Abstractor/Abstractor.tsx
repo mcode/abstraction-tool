@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { R4 } from '@ahryman40k/ts-fhir-types';
 import executeElm from '../../utils/cql-executor';
 import questionnaireUpdater from '../../utils/results-processing';
@@ -10,8 +10,19 @@ export interface Props {
   valueSetMap: ValueSetMap;
   questionnaire: R4.IQuestionnaire;
 }
+interface ResponseObject {
+  isGenerated: boolean;
+  count: number;
+}
 
 const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props) => {
+  const [responseGenerated, setResponseGenerated] = useState<ResponseObject>( 
+    {
+      isGenerated: false,
+      count: 0
+    }
+  );
+
   useEffect(() => {
     const results = executeElm(patientData, library, valueSetMap);
 
@@ -30,16 +41,30 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
       console.log(lform);
       window.LForms.Util.addFormToPage(lform, 'formContainer');
 
-      // Get Questionnaire Response
-      const qr = window.LForms.Util.getFormFHIRData('QuestionnaireResponse', 'R4', lform);
-      console.log(qr);
-      //window.LForms.Util.mergeFHIRDataIntoLForms("QuestionnaireResponse", qr, lform, "R4");
     } catch (e) {
       console.error(`Error finding patient resource within bundle: ${e.message}`);
     }
   }, [patientData, library, valueSetMap, questionnaire]);
 
-  return <div id="formContainer"></div>;
+  const generateQR = () => {
+    // Generate QuestionnaireResponse
+    const qr = window.LForms.Util.getFormFHIRData('QuestionnaireResponse', 'R4');
+    console.log(qr);
+    // Signify to user that QuestionnaireResponse has been generated
+    let answerCount = 0;
+    if (qr.item) {
+      answerCount = qr.item.length;
+    }
+    setResponseGenerated({ isGenerated:true, count: answerCount});
+  }
+  
+  return (
+    <div>
+      <div id="formContainer"> </div>
+      <button onClick ={() => generateQR()}>Generate Questionnaire Response</button> 
+      {responseGenerated.isGenerated && <p>Questionnaire Response has been generated with {responseGenerated.count} answer(s) and has been logged to the console!</p>}
+    </div>
+  );
 };
 
 export default Abstractor;
