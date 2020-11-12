@@ -10,11 +10,15 @@ export interface Props {
   valueSetMap: ValueSetMap;
   questionnaire: R4.IQuestionnaire;
 }
+interface ResponseObject {
+  isGenerated: boolean;
+  count: number;
+}
 
 const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props) => {
-  const [responseGenerated, setResponseGenerated] = useState(
-     {  
-      message: false,
+  const [responseGenerated, setResponseGenerated] = useState<ResponseObject>( 
+    {
+      isGenerated: false,
       count: 0
     }
   );
@@ -53,7 +57,7 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
     if (qr.item) {
       answerCount = qr.item.length;
     }
-    setResponseGenerated(responseGenerated => ({...responseGenerated,  message: true, count: answerCount}) );
+    setResponseGenerated({ isGenerated:true, count: answerCount});
   }
   
   const generateHL7Message = () => {
@@ -65,8 +69,7 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
     <div>
       <div id="formContainer"> </div>
       <button onClick ={() => generateQR()}>Generate Questionnaire Response</button> 
-      { responseGenerated && <p>Questionnaire Response has been generated and has been logged to the console!</p>}
-      <button onClick ={() => generateHL7Message()}>Get HL7 Information</button>
+      {responseGenerated.isGenerated && <p>Questionnaire Response has been generated with {responseGenerated.count} answer(s) and has been logged to the console!</p>}
     </div>
   );
 };
