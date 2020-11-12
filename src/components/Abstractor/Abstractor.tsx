@@ -16,9 +16,9 @@ interface ResponseObject {
 }
 
 const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props) => {
-  const [responseGenerated, setResponseGenerated] = useState(
-     {  
-      message: false,
+  const [responseGenerated, setResponseGenerated] = useState<ResponseObject>( 
+    {
+      isGenerated: false,
       count: 0
     }
   );
@@ -50,8 +50,6 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
     // Generate QuestionnaireResponse
     const qr = window.LForms.Util.getFormFHIRData('QuestionnaireResponse', 'R4');
     console.log(qr);
-
-    //console.log("this is lformer " + lformer)
     // Signify to user that QuestionnaireResponse has been generated
     let answerCount = 0;
     if (qr.item) {
@@ -60,17 +58,11 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
     setResponseGenerated({ isGenerated:true, count: answerCount});
   }
   
-  const generateHL7Message = () => {
-    const exporter = window.LForms.Util.getFormHL7Data();
-    console.log(exporter);
-  }
-
   return (
     <div>
       <div id="formContainer"> </div>
       <button onClick ={() => generateQR()}>Generate Questionnaire Response</button> 
-      { responseGenerated && <p>Questionnaire Response has been generated and has been logged to the console!</p>}
-      <button onClick ={() => generateHL7Message()}>Get HL7 Information</button>
+      {responseGenerated.isGenerated && <p>Questionnaire Response has been generated with {responseGenerated.count} answer(s) and has been logged to the console!</p>}
     </div>
   );
 };
