@@ -58,11 +58,17 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
     setResponseGenerated({ isGenerated:true, count: answerCount});
   }
   
+  const generateHL7Message = () => {
+    const exporter = window.LForms.Util.getFormHL7Data();
+    console.log(exporter);
+  }
+
   return (
     <div>
       <div id="formContainer"> </div>
       <button onClick ={() => generateQR()}>Generate Questionnaire Response</button> 
       {responseGenerated.isGenerated && <p>Questionnaire Response has been generated with {responseGenerated.count} answer(s) and has been logged to the console!</p>}
+      <button onClick ={() => generateHL7Message()}>Get HL7 Information</button>
     </div>
   );
 };
