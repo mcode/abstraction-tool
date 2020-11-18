@@ -1,5 +1,5 @@
 import { R4 } from '@ahryman40k/ts-fhir-types';
-import { createAnswerOption, createPrimitiveInitialValue } from '../../utils/results-processing';
+import { createAnswerOption, createPrimitiveInitialValue, isPrimitive } from '../../utils/results-processing';
 
 const STRING_CQL_RESULT = 'test';
 const INT_CQL_RESULT = 10;
@@ -107,5 +107,12 @@ describe('Results Processing Tests', () => {
 
   it('should create valid valueReference answer option', () => {
     expect(createAnswerOption(REFERENCE_CQL_RESULT)).toEqual(REFERENCE_ANSWER_OPTION);
+  });
+
+  it('should properly identify primitives', () => {
+    expect(isPrimitive(STRING_CQL_RESULT)).toBe(true);
+    expect(isPrimitive(DATE_CQL_RESULT)).toBe(true);
+    expect(isPrimitive(INT_CQL_RESULT)).toBe(true);
+    expect(isPrimitive(TIME_CQL_RESULT)).toBe(true);
   });
 });
