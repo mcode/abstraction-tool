@@ -1,0 +1,308 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "mcode",
+  "title": "mcode",
+  "status": "draft",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/cqf-library",
+      "valueCanonical": "./static/mcode-library.json"
+    }
+  ],
+  "item": [
+    {
+      "linkId": "CancerDiseaseStatus",
+      "text": "CancerDiseaseStatus",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "\"mcode\".CancerDiseaseStatus"
+          }
+        }
+      ],
+      "type": "choice"
+    },
+    {
+      "linkId": "CancerGeneticVariant",
+      "text": "CancerGeneticVariant",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "\"mcode\".CancerGeneticVariant"
+          }
+        }
+      ],
+      "type": "choice"
+    },
+    {
+      "linkId": "CancerGenomicsReport",
+      "text": "CancerGenomicsReport",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "\"mcode\".CancerGenomicsReport"
+          }
+        }
+      ],
+      "type": "choice"
+    },
+    {
+      "linkId": "CancerRelatedRadiationProcedure",
+      "text": "CancerRelatedRadiationProcedure",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "\"mcode\".CancerRelatedRadiationProcedure"
+          }
+        }
+      ],
+      "type": "choice"
+    },
+    {
+      "linkId": "CancerRelatedSurgicalProcedure",
+      "text": "CancerRelatedSurgicalProcedure",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "\"mcode\".CancerRelatedSurgicalProcedure"
+          }
+        }
+      ],
+      "type": "choice"
+    },
+    {
+      "linkId": "ComorbidCondition",
+      "text": "ComorbidCondition",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "\"mcode\".ComorbidCondition"
+          }
+        }
+      ],
+      "type": "choice"
+    },
+    {
+      "linkId": "ECOGPerformanceStatus",
+      "text": "ECOGPerformanceStatus",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "\"mcode\".ECOGPerformanceStatus"
+          }
+        }
+      ],
+      "type": "choice"
+    },
+    {
+      "linkId": "GeneticSpecimen",
+      "text": "GeneticSpecimen",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "\"mcode\".GeneticSpecimen"
+          }
+        }
+      ],
+      "type": "choice"
+    },
+    {
+      "linkId": "GenomicRegionStudied",
+      "text": "GenomicRegionStudied",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "\"mcode\".GenomicRegionStudied"
+          }
+        }
+      ],
+      "type": "choice"
+    },
+    {
+      "linkId": "KarnofskyPerformanceStatus",
+      "text": "KarnofskyPerformanceStatus",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "\"mcode\".KarnofskyPerformanceStatus"
+          }
+        }
+      ],
+      "type": "choice"
+    },
+    {
+      "linkId": "PrimaryCancerCondition",
+      "text": "PrimaryCancerCondition",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "\"mcode\".PrimaryCancerCondition"
+          }
+        }
+      ],
+      "type": "choice"
+    },
+    {
+      "linkId": "SecondaryCancerCondition",
+      "text": "SecondaryCancerCondition",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "\"mcode\".SecondaryCancerCondition"
+          }
+        }
+      ],
+      "type": "choice"
+    },
+    {
+      "linkId": "TNMClinicalDistantMetastasesCategory",
+      "text": "TNMClinicalDistantMetastasesCategory",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "\"mcode\".TNMClinicalDistantMetastasesCategory"
+          }
+        }
+      ],
+      "type": "choice"
+    },
+    {
+      "linkId": "TNMClinicalPrimaryTumorCategory",
+      "text": "TNMClinicalPrimaryTumorCategory",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "\"mcode\".TNMClinicalPrimaryTumorCategory"
+          }
+        }
+      ],
+      "type": "choice"
+    },
+    {
+      "linkId": "TNMClinicalRegionalNodesCategory",
+      "text": "TNMClinicalRegionalNodesCategory",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "\"mcode\".TNMClinicalRegionalNodesCategory"
+          }
+        }
+      ],
+      "type": "choice"
+    },
+    {
+      "linkId": "TNMClinicalStageGroup",
+      "text": "TNMClinicalStageGroup",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "\"mcode\".TNMClinicalStageGroup"
+          }
+        }
+      ],
+      "type": "choice"
+    },
+    {
+      "linkId": "TNMPathologicalDistantMetastasesCategory",
+      "text": "TNMPathologicalDistantMetastasesCategory",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "\"mcode\".TNMPathologicalDistantMetastasesCategory"
+          }
+        }
+      ],
+      "type": "choice"
+    },
+    {
+      "linkId": "TNMPathologicalPrimaryTumorCategory",
+      "text": "TNMPathologicalPrimaryTumorCategory",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "\"mcode\".TNMPathologicalPrimaryTumorCategory"
+          }
+        }
+      ],
+      "type": "choice"
+    },
+    {
+      "linkId": "TNMPathologicalRegionalNodesCategory",
+      "text": "TNMPathologicalRegionalNodesCategory",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "\"mcode\".TNMPathologicalRegionalNodesCategory"
+          }
+        }
+      ],
+      "type": "choice"
+    },
+    {
+      "linkId": "TNMPathologicalStageGroup",
+      "text": "TNMPathologicalStageGroup",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "\"mcode\".TNMPathologicalStageGroup"
+          }
+        }
+      ],
+      "type": "choice"
+    },
+    {
+      "linkId": "TumorMarker",
+      "text": "TumorMarker",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "\"mcode\".TumorMarker"
+          }
+        }
+      ],
+      "type": "choice"
+    }
+  ]
+}
