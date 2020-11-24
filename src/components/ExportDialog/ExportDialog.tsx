@@ -11,7 +11,7 @@ import handleClickOpen from '../Abstractor/Abstractor'
 export interface Props {
   open: boolean
   close: (event: {}, reason: "backdropClick" | "escapeKeyDown") => void
-  content: { open: boolean; close: () => void; content: string | undefined; }
+  content: string | undefined
 }
 export default function ExportDialog({open, close, content}: Props) {
 

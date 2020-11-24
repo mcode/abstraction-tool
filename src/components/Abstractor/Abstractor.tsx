@@ -26,9 +26,9 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
   
   const handleClickOpen = (modalContent: string) => {
     setOpen(true);
-    if (modalContent === ContentType.HL7) {
+    if (modalContent == ContentType.HL7) {
       generateHL7Message();
-    } else if (modalContent === ContentType.QR) {
+    } else if (modalContent == ContentType.QR) {
       generateQR();
     };  
     setModalContent(modalContent);
@@ -65,6 +65,7 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
   const generateQR = () => {
     // Generate QuestionnaireResponse
     const qr = window.LForms.Util.getFormFHIRData('QuestionnaireResponse', 'R4');
+    //console.log(qr)
     return qr
   }
   
@@ -78,15 +79,11 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
   return (
     <div>
       <div id="formContainer"> </div>
-      <button onClick ={() => handleClickOpen('qr')}>Generate Questionnaire Response</button> 
-      <button type = "button" onClick ={() => handleClickOpen('hl7')}>HL7 v2 Message</button>
+      <button onClick ={() => handleClickOpen(ContentType.QR)}>Generate Questionnaire Response</button> 
+      <button type = "button" onClick ={() => handleClickOpen(ContentType.HL7)}>HL7 v2 Message</button>
       <ExportDialog open={open} close={handleClose} content={modalContent}/>
     </div>
   );
 };
 
 export default Abstractor;
-
-//change the argument to define which function is being called
-//new state variable to represent the exported content (type: String) or (type: IQuestionnaireResponse)
-//pass the new variable into exportdialog (call it content)
