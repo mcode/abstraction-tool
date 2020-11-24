@@ -1,5 +1,5 @@
 import { R4 } from '@ahryman40k/ts-fhir-types';
-import { createAnswerOption } from '../../utils/results-processing';
+import { createAnswerOption, createPrimitiveInitialValue, isPrimitive } from '../../utils/results-processing';
 
 const STRING_CQL_RESULT = 'test';
 const INT_CQL_RESULT = 10;
@@ -54,19 +54,19 @@ const REFERENCE_CQL_RESULT = {
   }
 };
 
-const STRING_ANSWER_OPTION: R4.IQuestionnaire_AnswerOption = {
+const STRING_INITIAL_VALUE: R4.IQuestionnaire_Initial = {
   valueString: STRING_CQL_RESULT
 };
 
-const INT_ANSWER_OPTION: R4.IQuestionnaire_AnswerOption = {
+const INT_INITIAL_VALUE: R4.IQuestionnaire_Initial = {
   valueInteger: INT_CQL_RESULT
 };
 
-const DATE_ANSWER_OPTION: R4.IQuestionnaire_AnswerOption = {
+const DATE_INITIAL_VALUE: R4.IQuestionnaire_Initial = {
   valueDate: DATE_CQL_RESULT.toString()
 };
 
-const TIME_ANSWER_OPTION: R4.IQuestionnaire_AnswerOption = {
+const TIME_INITIAL_VALUE: R4.IQuestionnaire_Initial = {
   valueTime: TIME_CQL_RESULT.toString()
 };
 
@@ -85,19 +85,19 @@ const REFERENCE_ANSWER_OPTION: R4.IQuestionnaire_AnswerOption = {
 
 describe('Results Processing Tests', () => {
   it('should create valid string answer option', () => {
-    expect(createAnswerOption(STRING_CQL_RESULT)).toEqual(STRING_ANSWER_OPTION);
+    expect(createPrimitiveInitialValue('valueString', STRING_CQL_RESULT)).toEqual(STRING_INITIAL_VALUE);
   });
 
   it('should create valid integer answer option', () => {
-    expect(createAnswerOption(INT_CQL_RESULT)).toEqual(INT_ANSWER_OPTION);
+    expect(createPrimitiveInitialValue('valueInteger', INT_CQL_RESULT)).toEqual(INT_INITIAL_VALUE);
   });
 
   it('should create valid date answer option', () => {
-    expect(createAnswerOption(DATE_CQL_RESULT)).toEqual(DATE_ANSWER_OPTION);
+    expect(createPrimitiveInitialValue('valueDate', DATE_CQL_RESULT)).toEqual(DATE_INITIAL_VALUE);
   });
 
   it('should create valid time answer option', () => {
-    expect(createAnswerOption(TIME_CQL_RESULT)).toEqual(TIME_ANSWER_OPTION);
+    expect(createPrimitiveInitialValue('valueTime', TIME_CQL_RESULT)).toEqual(TIME_INITIAL_VALUE);
   });
 
   it('should create valid valueCoding answer option', () => {
@@ -107,5 +107,12 @@ describe('Results Processing Tests', () => {
 
   it('should create valid valueReference answer option', () => {
     expect(createAnswerOption(REFERENCE_CQL_RESULT)).toEqual(REFERENCE_ANSWER_OPTION);
+  });
+
+  it('should properly identify primitives', () => {
+    expect(isPrimitive(STRING_CQL_RESULT)).toBe(true);
+    expect(isPrimitive(DATE_CQL_RESULT)).toBe(true);
+    expect(isPrimitive(INT_CQL_RESULT)).toBe(true);
+    expect(isPrimitive(TIME_CQL_RESULT)).toBe(true);
   });
 });
