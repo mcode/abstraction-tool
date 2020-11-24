@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { R4 } from '@ahryman40k/ts-fhir-types';
-import executeElm from '../../utils/cql-executor';
-import questionnaireUpdater from '../../utils/results-processing';
-import { ValueSetMap } from '../../types/valueset';
-import Modal from '@material-ui/core/Modal';
 import Dialog from '@material-ui/core/Dialog';
-import PropTypes from 'prop-types';
-import handleClickOpen from '../Abstractor/Abstractor'
 
 export interface Props {
   open: boolean

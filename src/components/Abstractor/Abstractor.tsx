@@ -26,12 +26,14 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
   
   const handleClickOpen = (modalContent: string) => {
     setOpen(true);
-    if (modalContent == ContentType.HL7) {
-      generateHL7Message();
-    } else if (modalContent == ContentType.QR) {
-      generateQR();
+    
+    let response = ''
+    if (modalContent === ContentType.HL7) {
+      response = generateHL7Message();
+    } else if (modalContent === ContentType.QR) {
+      response = generateQR();
     };  
-    setModalContent(modalContent);
+    setModalContent(response)
   };
 
   const handleClose = () => {
@@ -65,13 +67,11 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
   const generateQR = () => {
     // Generate QuestionnaireResponse
     const qr = window.LForms.Util.getFormFHIRData('QuestionnaireResponse', 'R4');
-    //console.log(qr)
-    return qr
+    return JSON.stringify(qr, null, 10)
   }
   
   const generateHL7Message = () => {
     const exporter = window.LForms.Util.getFormHL7Data();
-    //console.log(exporter);
     return exporter
   }
   
@@ -79,8 +79,8 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
   return (
     <div>
       <div id="formContainer"> </div>
-      <button onClick ={() => handleClickOpen(ContentType.QR)}>Generate Questionnaire Response</button> 
-      <button type = "button" onClick ={() => handleClickOpen(ContentType.HL7)}>HL7 v2 Message</button>
+      <button onClick ={() => handleClickOpen('qr')}>Generate Questionnaire Response</button> 
+      <button type = "button" onClick ={() => handleClickOpen('hl7')}>HL7 v2 Message</button>
       <ExportDialog open={open} close={handleClose} content={modalContent}/>
     </div>
   );
