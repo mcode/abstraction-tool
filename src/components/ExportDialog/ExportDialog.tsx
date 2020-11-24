@@ -15,6 +15,7 @@ export default function ExportDialog({open, close, content}: Props) {
         onClose={close}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        maxWidth='lg'
       >
         {content}
       </Dialog>
