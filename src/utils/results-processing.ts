@@ -109,10 +109,7 @@ export function createPrimitiveInitialValue(
   cqlResult: Date | number | string
 ): R4.IQuestionnaire_Initial {
   return {
-    [key]:
-      key === Primitives.DATE || key === Primitives.DATETIME || key === Primitives.TIME
-        ? cqlResult.toString()
-        : cqlResult
+    [key]: key === Primitives.DATE || key === Primitives.DATETIME ? cqlResult.toString() : cqlResult
   };
 }
 
