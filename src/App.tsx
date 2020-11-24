@@ -39,7 +39,7 @@ const App = () => {
           const fhirLibrary = response.data as R4.ILibrary;
           const library = await new LibraryLoader(fhirLibrary).fetchELM();
 
-          const vsResponse = await axios.get('./static/mcode-valuesets.json');
+          const vsResponse = await axios.get('./static/example-valueset.json');
           const valueSetBundle = vsResponse.data as R4.IBundle;
           const valueSetLoader = new ValueSetLoader(fhirLibrary, valueSetBundle);
           const valueSetMap = await valueSetLoader.seedValueSets();
