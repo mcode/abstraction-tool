@@ -33,7 +33,7 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
     } else if (modalContent === ContentType.QR) {
       response = generateQR();
     };  
-    setModalContent(response)
+    setModalContent(response);
   };
 
   const handleClose = () => {
