@@ -27,7 +27,7 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
   const handleClickOpen = (modalContent: string) => {
     setOpen(true);
     
-    let response = ''
+    let response = '';
     if (modalContent === ContentType.HL7) {
       response = generateHL7Message();
     } else if (modalContent === ContentType.QR) {
