@@ -5,8 +5,6 @@ import questionnaireUpdater from '../../utils/results-processing';
 import { ValueSetMap } from '../../types/valueset';
 import ExportDialog from '../ExportDialog/ExportDialog';
 
-
-
 export interface Props {
   patientData: R4.IBundle;
   library: any;
