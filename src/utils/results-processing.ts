@@ -36,6 +36,11 @@ export default function questionnaireUpdater(
         const matchingResource = questionnaireItems.find(
           element => getExpressionName(element) === key
         ) as R4.IQuestionnaire_Item;
+
+        if (!matchingResource) {
+          throw new Error(`Could not find questionnaire item with expressionName ${key}`);
+        }
+
         const questionnaireItemIndex = questionnaireItems.indexOf(matchingResource);
 
         // Add answerOption element to questionnaire item
