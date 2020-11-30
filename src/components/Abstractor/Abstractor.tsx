@@ -4,6 +4,8 @@ import executeElm from '../../utils/cql-executor';
 import questionnaireUpdater from '../../utils/results-processing';
 import { ValueSetMap } from '../../types/valueset';
 import ExportDialog from '../ExportDialog/ExportDialog';
+import Button from '@material-ui/core/Button';
+
 
 
 
@@ -67,20 +69,37 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
   const generateQR = () => {
     // Generate QuestionnaireResponse
     const qr = window.LForms.Util.getFormFHIRData('QuestionnaireResponse', 'R4');
-    return JSON.stringify(qr, null, 10)
+    var myJSONString = JSON.stringify(qr, null, 2);
+    return myJSONString;
   }
   
   const generateHL7Message = () => {
     const exporter = window.LForms.Util.getFormHL7Data();
-    return exporter
+    var myJSONString = JSON.stringify(exporter, null, 2);
+    var myEscapedJSONString = myJSONString.replace(/\\n/g, "\\n")
+                                      .replace(/\\'/g, "\\'")
+                                      .replace(/\\"/g, '\\"')
+                                      .replace(/\\&/g, "\\&")
+                                      .replace(/\\r/g, "\\r")
+                                      .replace(/\\t/g, "\\t")
+                                      .replace(/\\b/g, "\\b")
+                                      .replace(/\\f/g, "\\f");
+
+    return myEscapedJSONString;
   }
   
 
   return (
     <div>
       <div id="formContainer"> </div>
-      <button onClick ={() => handleClickOpen('qr')}>Generate Questionnaire Response</button> 
-      <button type = "button" onClick ={() => handleClickOpen('hl7')}>HL7 v2 Message</button>
+      <Button 
+          style={{
+            backgroundColor: "#4b8ac8",
+        }} 
+        size = "medium" variant="contained" color="primary" onClick={() => handleClickOpen('qr')}>Generate Questionnaire Response</Button>
+      <Button style={{
+            backgroundColor: "#4b8ac8",
+        }} size = "medium" variant="contained" color="primary" onClick={() => handleClickOpen('hl7')}>HL7 v2 Message</Button>
       <ExportDialog open={open} close={handleClose} content={modalContent}/>
     </div>
   );

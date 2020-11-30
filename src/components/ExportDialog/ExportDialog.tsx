@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Dialog from '@material-ui/core/Dialog';
+import Typography from '@material-ui/core/Typography';
 
 export interface Props {
   open: boolean
@@ -15,9 +16,18 @@ export default function ExportDialog({open, close, content}: Props) {
         onClose={close}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        maxWidth='lg'
+          fullWidth
+        style={{
+          paddingRight: 17,
+          height: "100%",
+          width: "100%",
+          boxSizing: "content-box",
+          overflow: "scroll"
+        }}
       >
-        {content}
+        <Typography display = "inline" variant="h6" align="center" paragraph gutterBottom>
+          {content}
+        </Typography>
       </Dialog>
     </div>
   );
