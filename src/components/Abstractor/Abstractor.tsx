@@ -73,17 +73,7 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
   
   const generateHL7Message = () => {
     const exporter = window.LForms.Util.getFormHL7Data();
-    var myJSONString = JSON.stringify(exporter, null, 2);
-    var myEscapedJSONString = myJSONString.replace(/\\n/g, "\\n")
-                                      .replace(/\\'/g, "\\'")
-                                      .replace(/\\"/g, '\\"')
-                                      .replace(/\\&/g, "\\&")
-                                      .replace(/\\r/g, "\\r")
-                                      .replace(/\\t/g, "\\t")
-                                      .replace(/\\b/g, "\\b")
-                                      .replace(/\\f/g, "\\f");
-
-    return myEscapedJSONString;
+    return JSON.stringify(exporter, null, 2);
   }
   
 
