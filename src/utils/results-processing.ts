@@ -138,12 +138,14 @@ function createValueReferenceAnswerOption(
 
   const referenceLocation = `${resourceType}/${cqlResult.id.value}`;
   //const displayLocation = getDisplayValue(fhirObject, resourceType);
-
+  console.log(fhirObject);
   // Format answer option
   const referenceObject = {
     valueReference: {
       reference: referenceLocation,
-      display: cqlResult.code.coding[0].display.value
+      //display: cqlResult.code.coding[0].display.value
+      //display: cqlResult.code.coding[0].display.value
+      display: fhirObject.resourceType
     }
   };
   return referenceObject;
@@ -163,20 +165,20 @@ function getExpressionName(item: R4.IQuestionnaire_Item): string | undefined {
   return undefined;
 }
 
-function getDisplayValue(fhirResource,type): string {
-  let display: string = type;
-  switch(type) {
-    case "Specimen":
-      //
-      break;
+// function getDisplayValue(fhirResource,type): string {
+//   let display: string = type;
+//   switch(type) {
+//     case "Specimen":
+//       //
+//       break;
 
-    case "MedicationStatement":
-      //
-      break;
+//     case "MedicationStatement":
+//       //
+//       break;
     
-    default:
-      //
-      display = fhirResource.code.coding[0].display.value
-  }
+//     default:
+//       //
+//       display = fhirResource.code.coding[0].display.value
+//   }
 
-}
+// }
