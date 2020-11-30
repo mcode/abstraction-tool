@@ -7,8 +7,6 @@ import ExportDialog from '../ExportDialog/ExportDialog';
 import Button from '@material-ui/core/Button';
 
 
-
-
 export interface Props {
   patientData: R4.IBundle;
   library: any;
@@ -29,13 +27,13 @@ const Abstractor = ({ patientData, library, valueSetMap, questionnaire }: Props)
   const handleClickOpen = (modalContent: string) => {
     setOpen(true);
     
-    let response = ''
+    let response = '';
     if (modalContent === ContentType.HL7) {
       response = generateHL7Message();
     } else if (modalContent === ContentType.QR) {
       response = generateQR();
     };  
-    setModalContent(response)
+    setModalContent(response);
   };
 
   const handleClose = () => {
