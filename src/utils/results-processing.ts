@@ -167,6 +167,9 @@ function getDisplayValue(fhirResource: any, resourceType: string): string | unde
     case 'Specimen':
       attribute = 'type';
       break;
+    case 'MedicationStatement':
+      attribute = 'medicationCodeableConcept';
+      break;
     default:
       attribute = 'code';
   }
