@@ -134,18 +134,18 @@ function createValueReferenceAnswerOption(
   cqlResult: any,
   fhirObject: R4.IResourceList
 ): R4.IQuestionnaire_AnswerOption {
-  const resourceType = fhirObject.resourceType;
-
-  const referenceLocation = `${resourceType}/${cqlResult.id.value}`;
-  //const displayLocation = getDisplayValue(fhirObject, resourceType);
-  console.log(fhirObject);
+  const resourceType = fhirObject.resourceType as string;
+  const referenceLocation = `${resourceType}/${fhirObject.id}`
+  const displayLocation = getDisplayValue(cqlResult, resourceType);
+  console.log(displayLocation);
   // Format answer option
   const referenceObject = {
     valueReference: {
       reference: referenceLocation,
       //display: cqlResult.code.coding[0].display.value
       //display: cqlResult.code.coding[0].display.value
-      display: fhirObject.resourceType
+      //display: (fhirObject as R4.IProcedure).code?.coding![0]._code
+      display: displayLocation
     }
   };
   return referenceObject;
@@ -165,20 +165,44 @@ function getExpressionName(item: R4.IQuestionnaire_Item): string | undefined {
   return undefined;
 }
 
-// function getDisplayValue(fhirResource,type): string {
-//   let display: string = type;
-//   switch(type) {
-//     case "Specimen":
-//       //
-//       break;
+function getDisplayValue(fhirResource: any, resourceType: string): string | undefined {
+  let display: string | undefined = undefined;
 
-//     case "MedicationStatement":
-//       //
-//       break;
-    
-//     default:
-//       //
-//       display = fhirResource.code.coding[0].display.value
-//   }
+  let codeableConceptAttribute: string;
+  switch(resourceType) {
+    case "Specimen":
+      codeableConceptAttribute = 'type'
+      break;
+    default:
+      codeableConceptAttribute = 'code'
+  }
+  // if (fhirResource.codeableConceptAttribute?.text)
+  //   display = fhirResource.codeableConceptAttribute.text;
+  // else 
+  //   display = fhirResource.codeableConceptAttribute.coding[0]?.display?.value
 
-// }
+  console.log(codeableConceptAttribute);
+  display = fhirResource.code.text;
+  //myResource = fhirResource as typing
+  // switch(resourceType) {
+  //   case "Specimen":
+  //     if ()
+  //       display = fhirResource?.type?.coding[0]?.display?.value;
+  //     break;
+  //   case "MedicationStatement":
+  //     if (fhirResource?.medicationReference?.reference)
+  //       display = fhirResource.medicationReference.reference;
+  //     else if (fhirResource?.code?.text)
+  //       display = fhirResource?.code?.text;
+  //     else
+  //       display = fhirResource?.code?.coding[0]?.display?.value;
+  //     break;
+  //   default:
+  //     if (fhirResource?.code?.text)
+  //       display = fhirResource.code.text;
+  //     else
+  //       display = fhirResource?.code?.coding[0]?.display?.value
+  // }
+
+  return display;
+}
