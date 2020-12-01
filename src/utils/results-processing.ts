@@ -26,7 +26,6 @@ export default function questionnaireUpdater(
   // Object Containing Questionnaire Items
   let questionnaireItems = questionnaire.item;
 
-  console.log(cqlResults);
   if (questionnaireItems !== undefined) {
     // Get Non-Empty Patient Results
     const igResources = cqlResults.patientResults[patientId];
@@ -135,17 +134,13 @@ function createValueReferenceAnswerOption(
   fhirObject: R4.IResourceList
 ): R4.IQuestionnaire_AnswerOption {
   const resourceType = fhirObject.resourceType as string;
-  const referenceLocation = `${resourceType}/${fhirObject.id}`
-  const displayLocation = getDisplayValue(cqlResult, resourceType);
-  console.log(displayLocation);
+  const referenceValue = `${resourceType}/${fhirObject.id}`;
+  const displayValue = getDisplayValue(cqlResult, resourceType);
   // Format answer option
   const referenceObject = {
     valueReference: {
-      reference: referenceLocation,
-      //display: cqlResult.code.coding[0].display.value
-      //display: cqlResult.code.coding[0].display.value
-      //display: (fhirObject as R4.IProcedure).code?.coding![0]._code
-      display: displayLocation
+      reference: referenceValue,
+      display: displayValue ? displayValue : referenceValue
     }
   };
   return referenceObject;
@@ -166,43 +161,17 @@ function getExpressionName(item: R4.IQuestionnaire_Item): string | undefined {
 }
 
 function getDisplayValue(fhirResource: any, resourceType: string): string | undefined {
-  let display: string | undefined = undefined;
-
-  let codeableConceptAttribute: string;
-  switch(resourceType) {
-    case "Specimen":
-      codeableConceptAttribute = 'type'
+  let attribute: string;
+  // Determine which Codeable Concept attribute to query based upon incoming resource type
+  switch (resourceType) {
+    case 'Specimen':
+      attribute = 'type';
       break;
     default:
-      codeableConceptAttribute = 'code'
+      attribute = 'code';
   }
-  // if (fhirResource.codeableConceptAttribute?.text)
-  //   display = fhirResource.codeableConceptAttribute.text;
-  // else 
-  //   display = fhirResource.codeableConceptAttribute.coding[0]?.display?.value
-
-  console.log(codeableConceptAttribute);
-  display = fhirResource.code.text;
-  //myResource = fhirResource as typing
-  // switch(resourceType) {
-  //   case "Specimen":
-  //     if ()
-  //       display = fhirResource?.type?.coding[0]?.display?.value;
-  //     break;
-  //   case "MedicationStatement":
-  //     if (fhirResource?.medicationReference?.reference)
-  //       display = fhirResource.medicationReference.reference;
-  //     else if (fhirResource?.code?.text)
-  //       display = fhirResource?.code?.text;
-  //     else
-  //       display = fhirResource?.code?.coding[0]?.display?.value;
-  //     break;
-  //   default:
-  //     if (fhirResource?.code?.text)
-  //       display = fhirResource.code.text;
-  //     else
-  //       display = fhirResource?.code?.coding[0]?.display?.value
-  // }
-
+  let display: string | undefined;
+  if (fhirResource[attribute]?.text?.value) display = fhirResource[attribute].text.value;
+  else display = fhirResource[attribute]?.coding[0]?.display?.value;
   return display;
 }
