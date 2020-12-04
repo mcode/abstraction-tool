@@ -1,4 +1,5 @@
 import { R4 } from '@ahryman40k/ts-fhir-types';
+import { isRight } from 'fp-ts/Either';
 import * as fs from 'fs';
 import axios from 'axios';
 
@@ -29,6 +30,6 @@ export class QuestionnaireLoader {
   isValidQuestionnaire(obj: any): boolean {
     const validQuestionnaire = R4.RTTI_Questionnaire.decode(obj);
     // Right = valid object
-    return validQuestionnaire.isRight();
+    return isRight(validQuestionnaire);
   }
 }
