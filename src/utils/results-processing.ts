@@ -133,12 +133,14 @@ function createValueReferenceAnswerOption(
   cqlResult: any,
   fhirObject: R4.IResourceList
 ): R4.IQuestionnaire_AnswerOption {
-  const referenceLocation = `${fhirObject.resourceType}/${cqlResult.id.value}`;
+  const resourceType = fhirObject.resourceType as string;
+  const referenceValue = `${resourceType}/${fhirObject.id}`;
+  const displayValue = getDisplayValue(cqlResult, resourceType);
   // Format answer option
   const referenceObject = {
     valueReference: {
-      reference: referenceLocation,
-      display: cqlResult.code.coding[0].display.value
+      reference: referenceValue,
+      display: displayValue ? displayValue : referenceValue
     }
   };
   return referenceObject;
@@ -156,4 +158,23 @@ function getExpressionName(item: R4.IQuestionnaire_Item): string | undefined {
     }
   }
   return undefined;
+}
+
+function getDisplayValue(fhirResource: any, resourceType: string): string | undefined {
+  let attribute: string;
+  // Determine which Codeable Concept attribute to query based upon incoming resource type
+  switch (resourceType) {
+    case 'Specimen':
+      attribute = 'type';
+      break;
+    case 'MedicationStatement':
+      attribute = 'medicationCodeableConcept';
+      break;
+    default:
+      attribute = 'code';
+  }
+  let display: string | undefined;
+  if (fhirResource[attribute]?.text?.value) display = fhirResource[attribute].text.value;
+  else display = fhirResource[attribute]?.coding[0]?.display?.value;
+  return display;
 }
