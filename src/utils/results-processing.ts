@@ -1,4 +1,5 @@
 import { R4 } from '@ahryman40k/ts-fhir-types';
+import { isRight } from 'fp-ts/Either';
 
 export enum Primitives {
   STRING = 'valueString',
@@ -36,6 +37,11 @@ export default function questionnaireUpdater(
         const matchingResource = questionnaireItems.find(
           element => getExpressionName(element) === key
         ) as R4.IQuestionnaire_Item;
+
+        if (!matchingResource) {
+          throw new Error(`Could not find questionnaire item with expressionName ${key}`);
+        }
+
         const questionnaireItemIndex = questionnaireItems.indexOf(matchingResource);
 
         // Add answerOption element to questionnaire item
@@ -66,11 +72,11 @@ export default function questionnaireUpdater(
 }
 
 export function createAnswerOption(cqlResult: any, itemName?: string): R4.IQuestionnaire_AnswerOption {
-  if (R4.RTTI_ResourceList.decode(cqlResult._json).isRight()) {
+  if (isRight(R4.RTTI_ResourceList.decode(cqlResult._json))) {
     return createValueReferenceAnswerOption(cqlResult, cqlResult._json as R4.IResourceList);
-  } else if (R4.RTTI_CodeableConcept.decode(cqlResult._json).isRight()) {
+  } else if (isRight(R4.RTTI_CodeableConcept.decode(cqlResult._json))) {
     return createValueCodingAnswerOptionCodeableConcept(cqlResult._json as R4.ICodeableConcept);
-  } else if (Array.isArray(cqlResult) && R4.RTTI_Coding.decode(cqlResult[0]._json).isRight()) {
+  } else if (Array.isArray(cqlResult) && isRight(R4.RTTI_Coding.decode(cqlResult[0]._json))) {
     // Codings will come in as arrays
     return createValueCodingAnswerOptionCoding(cqlResult[0]._json as R4.ICoding);
   } else {
@@ -83,8 +89,8 @@ export function isPrimitive(result: any): boolean {
     typeof result === 'string' ||
     result.isDate ||
     result.isDateTime ||
-    R4.RTTI_time.decode(result._json).isRight() ||
-    R4.RTTI_integer.decode(result).isRight()
+    isRight(R4.RTTI_time.decode(result._json)) ||
+    isRight(R4.RTTI_integer.decode(result))
   );
 }
 
@@ -95,9 +101,9 @@ export function getPrimitiveType(result: any): 'valueDate' | 'valueTime' | 'valu
     return Primitives.DATE;
   } else if (result.isDateTime) {
     return Primitives.DATETIME;
-  } else if (R4.RTTI_time.decode(result._json).isRight()) {
+  } else if (isRight(R4.RTTI_time.decode(result._json))) {
     return Primitives.TIME;
-  } else if (R4.RTTI_integer.decode(result).isRight()) {
+  } else if (isRight(R4.RTTI_integer.decode(result))) {
     return Primitives.INT;
   } else {
     throw new Error(`${result} was detected as primitive but could not be processed`);

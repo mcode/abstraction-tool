@@ -1,4 +1,5 @@
 import { R4 } from '@ahryman40k/ts-fhir-types';
+import { isRight } from 'fp-ts/Either';
 import _ from 'lodash';
 import { ValueSetMap } from '../types/valueset';
 import axios from 'axios';
@@ -68,6 +69,6 @@ export class ValueSetLoader {
 
     const validValueSet = R4.RTTI_ValueSet.decode(obj);
     // Right = valid object
-    return validValueSet.isRight();
+    return isRight(validValueSet);
   }
 }
