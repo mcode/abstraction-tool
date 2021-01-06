@@ -14,7 +14,7 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "cql-exec-fhir": "^1.3.1",
     "cql-execution": "^1.4.4",
     "cql-translation-service-client": "^0.5.0",
