@@ -2,14 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import ErrorBoundary from './components/ErrorBoundary';
 import * as serviceWorker from './serviceWorker';
 import { PatientProvider } from './components/PatientProvider';
 
 ReactDOM.render(
   <React.StrictMode>
-    <PatientProvider>
-      <App />
-    </PatientProvider>
+    <ErrorBoundary>
+      <PatientProvider>
+        <App />
+      </PatientProvider>
+    </ErrorBoundary>
   </React.StrictMode>,
   document.getElementById('root')
 );
